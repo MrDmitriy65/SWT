@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dictionary_nav_graph"
+    app:startDestination="@id/categoryListFragment">
+
+    <fragment
+        android:id="@+id/categoryListFragment"
+        android:name="com.mrdmitriy65.serbianwordstrainer.fragments.dictionay.CategoryListFragment"
+        android:label="fragment_category_list"
+        tools:layout="@layout/fragment_category_list" >
+        <action
+            android:id="@+id/action_categoryListFragment_to_wordPairsListFragment"
+            app:destination="@id/wordPairsListFragment" />
+        <action
+            android:id="@+id/action_categoryListFragment_to_addNewPairFragment"
+            app:destination="@id/addNewPairFragment" >
+            <argument
+                android:name="word_pair_id"
+                android:defaultValue="-1" />
+            <argument
+                android:name="category_id"
+                android:defaultValue="-1" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/wordPairsListFragment"
+        android:name="com.mrdmitriy65.serbianwordstrainer.fragments.dictionay.WordPairsListFragment"
+        android:label="fragment_word_pairs_list"
+        tools:layout="@layout/fragment_word_pairs_list" >
+        <action
+            android:id="@+id/action_wordPairsListFragment_to_addNewPairFragment"
+            app:destination="@id/addNewPairFragment" />
+        <action
+            android:id="@+id/action_wordPairsListFragment_to_categoryListFragment"
+            app:destination="@id/categoryListFragment"
+            app:popUpTo="@id/categoryListFragment"
+            app:popUpToInclusive="true" />
+        <argument android:name="category_id"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
+    <fragment
+        android:id="@+id/addNewPairFragment"
+        android:name="com.mrdmitriy65.serbianwordstrainer.fragments.dictionay.AddNewPairFragment"
+        android:label="fragment_add_new_pair"
+        tools:layout="@layout/fragment_add_new_pair" >
+        <action
+            android:id="@+id/action_addNewPairFragment_to_wordPairsListFragment"
+            app:destination="@id/wordPairsListFragment"
+            app:popUpTo="@id/wordPairsListFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="word_pair_id"
+            app:argType="integer"
+            android:defaultValue="-1" />
+        <argument
+            android:name="category_id"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
+</navigation>

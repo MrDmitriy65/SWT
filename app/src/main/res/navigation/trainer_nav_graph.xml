@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/trainer_nav_graph"
+    app:startDestination="@id/startLearnFragment">
+
+    <fragment
+        android:id="@+id/startLearnFragment"
+        android:name="com.mrdmitriy65.serbianwordstrainer.fragments.trainer.StartLearnFragment"
+        android:label="fragment_start_learn"
+        tools:layout="@layout/fragment_start_learn" >
+        <action
+            android:id="@+id/action_startLearnFragment_to_choseFromVariantsFragment"
+            app:destination="@id/choseFromVariantsFragment"
+            app:popUpTo="@id/startLearnFragment" />
+        <action
+            android:id="@+id/action_startLearnFragment_to_writeWordFromCharactersFragment"
+            app:destination="@id/writeWordFromCharactersFragment"
+            app:popUpTo="@id/startLearnFragment" />
+        <action
+            android:id="@+id/action_startLearnFragment_to_writeAnswerExerciseFragment"
+            app:destination="@id/writeAnswerExerciseFragment"
+            app:popUpTo="@id/startLearnFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/choseFromVariantsFragment"
+        android:name="com.mrdmitriy65.serbianwordstrainer.fragments.trainer.ChoseFromVariantsFragment"
+        android:label="fragment_chose_from_variants"
+        tools:layout="@layout/fragment_chose_from_variants" >
+        <action
+            android:id="@+id/action_choseFromVariantsFragment_to_answerFragment"
+            app:destination="@id/answerFragment"
+            app:popUpTo="@id/startLearnFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/writeWordFromCharactersFragment"
+        android:name="com.mrdmitriy65.serbianwordstrainer.fragments.trainer.WriteWordFromCharactersFragment"
+        android:label="fragment_write_word_from_characters"
+        tools:layout="@layout/fragment_write_word_from_characters" >
+        <action
+            android:id="@+id/action_writeWordFromCharactersFragment_to_answerFragment"
+            app:destination="@id/answerFragment"
+            app:popUpTo="@id/startLearnFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/writeAnswerExerciseFragment"
+        android:name="com.mrdmitriy65.serbianwordstrainer.fragments.trainer.WriteAnswerExerciseFragment"
+        android:label="fragment_write_answer_exercise"
+        tools:layout="@layout/fragment_write_answer_exercise" >
+        <action
+            android:id="@+id/action_writeAnswerExerciseFragment_to_answerFragment"
+            app:destination="@id/answerFragment"
+            app:popUpTo="@id/startLearnFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/answerFragment"
+        android:name="com.mrdmitriy65.serbianwordstrainer.fragments.trainer.AnswerFragment"
+        android:label="fragment_answer"
+        tools:layout="@layout/fragment_answer" >
+        <action
+            android:id="@+id/action_answerFragment_to_trainingResultFragment"
+            app:destination="@id/trainingResultFragment"
+            app:popUpTo="@id/startLearnFragment" />
+        <action
+            android:id="@+id/action_answerFragment_to_choseFromVariantsFragment"
+            app:destination="@id/choseFromVariantsFragment"
+            app:popUpTo="@id/startLearnFragment" />
+        <action
+            android:id="@+id/action_answerFragment_to_writeWordFromCharactersFragment"
+            app:destination="@id/writeWordFromCharactersFragment"
+            app:popUpTo="@id/startLearnFragment" />
+        <action
+            android:id="@+id/action_answerFragment_to_writeAnswerExerciseFragment"
+            app:destination="@id/writeAnswerExerciseFragment"
+            app:popUpTo="@id/startLearnFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/trainingResultFragment"
+        android:name="com.mrdmitriy65.serbianwordstrainer.fragments.trainer.TrainingResultFragment"
+        android:label="fragment_training_result"
+        tools:layout="@layout/fragment_training_result" >
+        <action
+            android:id="@+id/action_trainingResultFragment_to_startLearnFragment"
+            app:destination="@id/startLearnFragment"
+            app:popUpTo="@id/startLearnFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+</navigation>

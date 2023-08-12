@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Serbian Words Trainer</string>
+    <string name="answer_button_description">Кнопка для ответа</string>
+    <string name="answer_text_field">Ответ</string>
+    <string name="next_exercise_button">Далее</string>
+    <string name="skip_exercise_button">Пропустить ></string>
+    <string name="answer_activity_correct">Правильно</string>
+    <string name="answer_activity_incorrect">Неправильно</string>
+    <string name="exercise_results">Результаты %s / %s</string>
+    <string name="main_button_to_categories">К категориям</string>
+    <string name="main_button_to_dictionary">Словарь</string>
+    <string name="main_button_to_experimental">Тестирование</string>
+    <string name="categories_list">Список категорий</string>
+    <string name="start_learn_button">Начать</string>
+    <string name="reset_learn_button">Заменить слова</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_dictionary">DictionaryActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+</resources>
