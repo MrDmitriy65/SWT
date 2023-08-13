@@ -65,21 +65,6 @@ class ExerciseManager(
     private fun modifyAnswer(answer: String): String = answer.lowercase().replace('ё', 'е').trim()
 
     override fun getAnswers(exercise: Exercise): List<String> {
-//        val r1 = wordDictionary.filter { x ->
-//            !wordToLearn.any { y ->
-//                x.word.trim() == y.word.trim() || x.translate.trim() == y.translate.trim()
-//            }
-//        }
-//        val r2 = r1.shuffled()
-//        val r3 = r2.take(3)
-//        val r4 = r3.map {
-//            when (exercise.pair.translationType) {
-//                TranslationType.DIRECT -> it.translate
-//                else -> it.word
-//            }
-//        }
-//        val r5 = r4.union(listOf(exercise.pair.answer))
-//        val r6 = r5.toList()
         return wordDictionary.filter { x ->
             !wordToLearn.any { y ->
                 x.word.trim() == y.word.trim() || x.translate.trim() == y.translate.trim()

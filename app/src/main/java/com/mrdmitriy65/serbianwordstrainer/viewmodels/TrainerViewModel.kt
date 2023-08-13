@@ -38,8 +38,8 @@ class TrainerViewModel(
         return manager.getExercise()
     }
 
-    fun getAnswers(exercise: Exercise): List<String> {
-        return manager.getAnswers(exercise)
+    fun getAnswers(): List<String> {
+        return manager.getAnswers(getCurrentExercise())
     }
 
     fun setAnswer(answer: String) {

@@ -15,6 +15,10 @@
     <string name="add_new_pair_fragment_serbian_word">Сербское слово</string>
     <string name="add_new_pair_fragment_comment">Комментарий</string>
 
+    <!-- Chose From Variants fragment -->
+    <string name="chose_from_variants_fragment_play_sound">Прослушать слово</string>
+
+
     <!-- General -->
     <string name="button_save">Сохранить</string>
 

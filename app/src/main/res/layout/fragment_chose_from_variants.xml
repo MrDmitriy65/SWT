@@ -5,10 +5,16 @@
     tools:context=".fragments.trainer.ChoseFromVariantsFragment">
 
     <data>
+        <import type="android.view.View"/>
+        <import type="java.util.List"/>
 
         <variable
             name="viewModel"
             type="com.mrdmitriy65.serbianwordstrainer.viewmodels.TrainerViewModel" />
+
+        <variable
+            name="answers"
+            type="List&lt;String>" />
 
         <variable
             name="chooseFromVariantFragment"
@@ -31,8 +37,10 @@
                 android:layout_marginTop="@dimen/big_margin_size"
                 android:paddingStart="@dimen/small_margin_size"
                 android:paddingEnd="@dimen/small_margin_size"
+                android:text="@{viewModel.getCurrentExercise().pair.question}"
                 android:textAlignment="center"
                 android:textSize="30sp"
+                android:visibility="@{viewModel.getCurrentExercise().speakable ? View.INVISIBLE : View.VISIBLE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -43,10 +51,12 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:background="@drawable/ic_play_sound"
+                android:visibility="@{viewModel.getCurrentExercise().speakable ? View.VISIBLE : View.INVISIBLE}"
+                android:onClick="@{() -> chooseFromVariantFragment.playSound()}"
                 app:layout_constraintTop_toBottomOf="@id/question_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                />
+                android:contentDescription="@string/chose_from_variants_fragment_play_sound" />
 
 
             <Button
@@ -55,7 +65,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/big_margin_size"
                 android:contentDescription="@string/answer_button_description"
+                android:text="@{answers[0]}"
                 android:textSize="20sp"
+                android:onClick="@{() -> chooseFromVariantFragment.choseAnswer(answers[0])}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/question_sound"
@@ -67,7 +79,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/small_margin_size"
                 android:contentDescription="@string/answer_button_description"
+                android:text="@{answers[1]}"
                 android:textSize="20sp"
+                android:onClick="@{() -> chooseFromVariantFragment.choseAnswer(answers[1])}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/answer1"
@@ -79,7 +93,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/small_margin_size"
                 android:contentDescription="@string/answer_button_description"
+                android:text="@{answers[2]}"
                 android:textSize="20sp"
+                android:onClick="@{() -> chooseFromVariantFragment.choseAnswer(answers[2])}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/answer2"
@@ -91,7 +107,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/small_margin_size"
                 android:contentDescription="@string/answer_button_description"
+                android:text="@{answers[3]}"
                 android:textSize="20sp"
+                android:onClick="@{() -> chooseFromVariantFragment.choseAnswer(answers[3])}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/answer3"

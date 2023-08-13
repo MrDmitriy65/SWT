@@ -47,33 +47,11 @@ class ChoseFromVariantsFragment : Fragment() {
             viewModel = sharedViewModel
             lifecycleOwner = viewLifecycleOwner
             chooseFromVariantFragment = this@ChoseFromVariantsFragment
+            answers = sharedViewModel.getAnswers()
+        }
 
-            val exercise = sharedViewModel.getCurrentExercise()
-            val answers = sharedViewModel.getAnswers(exercise)
-
-            if (exercise.isSpeakable) {
-                questionText.visibility = View.INVISIBLE
-                questionSound.visibility = View.VISIBLE
-                questionSound.setOnClickListener {
-                    val tts = (activity as TrainerActivity).getTestToSpeach()
-                    sharedViewModel.playQuestion(tts)
-                }
-                sharedViewModel.playQuestion((activity as TrainerActivity).getTestToSpeach())
-            } else {
-                questionText.text = exercise.pair.question
-                questionText.visibility = View.VISIBLE
-                questionSound.visibility = View.INVISIBLE
-            }
-
-            answer1.text = answers[0]
-            answer2.text = answers[1]
-            answer3.text = answers[2]
-            answer4.text = answers[3]
-
-            answer1.setOnClickListener { choseAnser(answer1.text.toString()) }
-            answer2.setOnClickListener { choseAnser(answer2.text.toString()) }
-            answer3.setOnClickListener { choseAnser(answer3.text.toString()) }
-            answer4.setOnClickListener { choseAnser(answer4.text.toString()) }
+        if (sharedViewModel.getCurrentExercise().isSpeakable) {
+            sharedViewModel.playQuestion((activity as TrainerActivity).getTestToSpeach())
         }
     }
 
@@ -82,10 +60,15 @@ class ChoseFromVariantsFragment : Fragment() {
         binding = null
     }
 
-    private fun choseAnser(answer: String) {
+    fun choseAnswer(answer: String) {
         sharedViewModel.setAnswer(answer)
         val action =
             ChoseFromVariantsFragmentDirections.actionChoseFromVariantsFragmentToAnswerFragment();
         this.findNavController().navigate(action)
+    }
+
+    fun playSound() {
+        val tts = (activity as TrainerActivity).getTestToSpeach()
+        sharedViewModel.playQuestion(tts)
     }
 }
