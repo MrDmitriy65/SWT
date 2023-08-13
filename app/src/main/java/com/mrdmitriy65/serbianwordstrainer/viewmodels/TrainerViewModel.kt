@@ -14,13 +14,11 @@ import com.mrdmitriy65.serbianwordstrainer.models.Exercise
 import com.mrdmitriy65.serbianwordstrainer.models.TranslatePair
 
 class TrainerViewModel(
-    private val wordPairDao: WordPairDao
+    wordPairDao: WordPairDao
 ) : ViewModel() {
     val allWords: LiveData<List<WordPair>> = wordPairDao.getAllWordPairs().asLiveData()
 
     private val manager: IExerciseManager = ExerciseManager()
-    private var textToSpeech: TextToSpeech? = null
-    private lateinit var tts: TextToSpeech
 
     val wordsToLearn get() = manager.wordToLearn
 
@@ -48,7 +46,7 @@ class TrainerViewModel(
         manager.setAnswer(answer)
     }
 
-    fun isTrainigComplete(): Boolean {
+    fun isTrainingComplete(): Boolean {
         return manager.isTrainigComplete()
     }
 

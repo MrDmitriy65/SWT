@@ -43,22 +43,12 @@ class AnswerFragment : Fragment() {
             viewModel = sharedViewModel
             lifecycleOwner = viewLifecycleOwner
             answerFragment = this@AnswerFragment
-
-            val exercise = sharedViewModel.getCurrentExercise()
-
-            answerText.text = exercise.pair.answer
-            questionText.text = exercise.pair.question
-            exerciseResultText.text =
-                if (exercise.isCorrect) getString(R.string.answer_activity_correct)
-                else getString(R.string.answer_activity_incorrect)
-
-            nextExerciseButton.setOnClickListener { moveNext() }
         }
     }
 
-    private fun moveNext() {
+    fun moveNext() {
         sharedViewModel.setNextExercise()
-        val action = if (sharedViewModel.isTrainigComplete()) {
+        val action = if (sharedViewModel.isTrainingComplete()) {
             AnswerFragmentDirections.actionAnswerFragmentToTrainingResultFragment()
         } else {
             val exercise = sharedViewModel.getCurrentExercise()

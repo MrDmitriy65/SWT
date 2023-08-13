@@ -27,34 +27,6 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".StartLearnActivity"
-            android:exported="false"
-            android:parentActivityName=".CategoriesActivity" />
-        <activity
-            android:name=".CategoriesActivity"
-            android:exported="false"
-            android:parentActivityName="com.mrdmitriy65.serbianwordstrainer.MainActivity" />
-        <activity
-            android:name=".ExerciseResultActivity"
-            android:exported="false"
-            android:parentActivityName="com.mrdmitriy65.serbianwordstrainer.MainActivity" />
-        <activity
-            android:name=".ChoseFromVariantsActivity"
-            android:exported="false"
-            android:parentActivityName="com.mrdmitriy65.serbianwordstrainer.MainActivity" />
-        <activity
-            android:name=".WriteWordFromCharactersActivity"
-            android:exported="false"
-            android:parentActivityName="com.mrdmitriy65.serbianwordstrainer.MainActivity" />
-        <activity
-            android:name=".WriteAnswerExerciseActivity"
-            android:exported="false"
-            android:parentActivityName="com.mrdmitriy65.serbianwordstrainer.MainActivity" />
-        <activity
-            android:name=".AnswerActivity"
-            android:exported="false"
-            android:parentActivityName="com.mrdmitriy65.serbianwordstrainer.MainActivity" />
-        <activity
             android:name="com.mrdmitriy65.serbianwordstrainer.MainActivity"
             android:exported="true">
             <intent-filter>

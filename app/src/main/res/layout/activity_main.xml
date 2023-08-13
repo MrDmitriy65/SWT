@@ -36,10 +36,10 @@
         android:layout_margin="32dp"
         android:text="@string/main_button_to_experimental"
         android:textSize="32sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/move_to_categories_button"
-        tools:visibility="gone" />
+        app:layout_constraintTop_toBottomOf="@id/move_to_categories_button" />
 
     <TextView
         android:id="@+id/textView"

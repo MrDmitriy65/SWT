@@ -1,10 +1,22 @@
 <resources>
     <string name="app_name">Serbian Words Trainer</string>
+
     <!-- Main Activity -->
     <string name="main_button_to_categories">К категориям</string>
     <string name="main_button_to_training">Тренировка</string>
     <string name="main_button_to_dictionary">Словарь</string>
     <string name="main_button_to_experimental">Тестирование</string>
+
+    <!-- Category fragment -->
+    <string name="category_fragment_add_new_pair_button_description">Кнопка для добавления новой пары слов</string>
+
+    <!-- Add new pair fragment -->
+    <string name="add_new_pair_fragment_russian_word">Русское слово</string>
+    <string name="add_new_pair_fragment_serbian_word">Сербское слово</string>
+    <string name="add_new_pair_fragment_comment">Комментарий</string>
+
+    <!-- General -->
+    <string name="button_save">Сохранить</string>
 
     <string name="answer_button_description">Кнопка для ответа</string>
     <string name="answer_text_field">Ответ</string>
