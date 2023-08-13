@@ -20,6 +20,12 @@ class TrainerActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.trainer_nav_host_container) as NavHostFragment
         navController = navHostFragment.navController
 
+        initializeTts()
+
+        setContentView(binding.root)
+    }
+
+    private fun initializeTts() {
         val onInitListener = TextToSpeech.OnInitListener {
             if (it == TextToSpeech.SUCCESS) {
                 tts.voice =
@@ -27,8 +33,6 @@ class TrainerActivity : AppCompatActivity() {
             }
         }
         tts = TextToSpeech(this, onInitListener)
-
-        setContentView(binding.root)
     }
 
     public fun getTestToSpeach(): TextToSpeech {

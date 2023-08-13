@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="32dp"
         android:textSize="32sp"
-        android:text="@string/main_button_to_categories"
+        android:text="@string/main_button_to_training"
         app:layout_constraintTop_toBottomOf="@id/move_to_dictionary_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -34,11 +34,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="32dp"
-        android:textSize="32sp"
         android:text="@string/main_button_to_experimental"
-        app:layout_constraintTop_toBottomOf="@id/move_to_categories_button"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/move_to_categories_button"
+        tools:visibility="gone" />
 
     <TextView
         android:id="@+id/textView"

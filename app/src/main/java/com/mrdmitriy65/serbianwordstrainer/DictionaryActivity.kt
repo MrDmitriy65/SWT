@@ -15,10 +15,5 @@ class DictionaryActivity : AppCompatActivity(com.mrdmitriy65.serbianwordstrainer
         val navHostFragment = supportFragmentManager
             .findFragmentById(com.mrdmitriy65.serbianwordstrainer.R.id.dictionary_nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
-        //setupActionBarWithNavController(this, navController)
     }
-
-//    override fun onSupportNavigateUp(): Boolean {
-//        return navController.navigateUp() || super.onSupportNavigateUp()
-//    }
 }
