@@ -13,11 +13,6 @@ import com.mrdmitriy65.serbianwordstrainer.databinding.FragmentChoseFromVariants
 import com.mrdmitriy65.serbianwordstrainer.viewmodels.TrainerViewModel
 import com.mrdmitriy65.serbianwordstrainer.viewmodels.TrainerViewModelFactory
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ChoseFromVariantsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ChoseFromVariantsFragment : Fragment() {
 
     private var binding: FragmentChoseFromVariantsBinding? = null
@@ -36,7 +31,6 @@ class ChoseFromVariantsFragment : Fragment() {
         val fragmentBinding = FragmentChoseFromVariantsBinding.inflate(inflater, container, false)
         binding = fragmentBinding
 
-        // Inflate the layout for this fragment
         return fragmentBinding.root
     }
 

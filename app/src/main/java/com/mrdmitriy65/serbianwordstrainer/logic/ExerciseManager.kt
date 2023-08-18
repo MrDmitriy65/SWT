@@ -35,9 +35,7 @@ class ExerciseManager(
             exerciseList.add(Exercise(exerciseReverse, ExerciseType.CHOSE_FROM_VARIANTS, true))
             exerciseList.add(Exercise(exerciseReverse, ExerciseType.CHOSE_FROM_VARIANTS))
             exerciseList.add(Exercise(exercise, ExerciseType.WRITE_ANSWER))
-            exerciseList.add(Exercise(exerciseReverse, ExerciseType.WRITE_ANSWER))
             exerciseList.add(Exercise(exercise, ExerciseType.WRITE_WORD_FROM_CHARACTERS))
-            exerciseList.add(Exercise(exerciseReverse, ExerciseType.WRITE_WORD_FROM_CHARACTERS))
         }
         exerciseList.shuffle()
         currentExerciseNumber++

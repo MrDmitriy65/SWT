@@ -32,7 +32,6 @@ class AnswerFragment : Fragment() {
         val fragmentBinding = FragmentAnswerBinding.inflate(inflater, container, false)
         binding = fragmentBinding
 
-        // Inflate the layout for this fragment
         return fragmentBinding.root
     }
 

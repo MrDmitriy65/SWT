@@ -17,7 +17,9 @@ import com.mrdmitriy65.serbianwordstrainer.viewmodels.TrainerViewModelFactory
 
 class StartLearnFragment : Fragment() {
 
-    private var binding: FragmentStartLearnBinding? = null
+    private var _binding: FragmentStartLearnBinding? = null
+
+    private val binding get() = _binding!!
 
     private val sharedViewModel: TrainerViewModel by activityViewModels{
         TrainerViewModelFactory(
@@ -30,20 +32,13 @@ class StartLearnFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val fragmentBinding = FragmentStartLearnBinding.inflate(inflater, container, false)
-        binding = fragmentBinding
-        // Inflate the layout for this fragment
-        return fragmentBinding.root
+        _binding = FragmentStartLearnBinding.inflate(inflater, container, false)
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding?.apply {
-            viewModel = sharedViewModel
-            lifecycleOwner = viewLifecycleOwner
-            startLearnFragment = this@StartLearnFragment
-        }
 
         val adapter = WordTranslatePairAdapter()
         sharedViewModel.allWords.observe(this.viewLifecycleOwner){
@@ -52,14 +47,19 @@ class StartLearnFragment : Fragment() {
             adapter.submitList(sharedViewModel.wordsToLearn)
         }
 
-        binding?.exercisesList?.adapter = adapter
-        binding?.resetButton?.setOnClickListener{
+        binding.exercisesList.adapter = adapter
+        binding.resetButton.setOnClickListener{
             sharedViewModel.resetWords()
             adapter.submitList(sharedViewModel.wordsToLearn)
         }
-        binding?.startButton?.setOnClickListener{
+        binding.startButton.setOnClickListener{
             startTraining()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun startTraining() {
@@ -71,10 +71,5 @@ class StartLearnFragment : Fragment() {
             ExerciseType.WRITE_WORD_FROM_CHARACTERS -> StartLearnFragmentDirections.actionStartLearnFragmentToWriteWordFromCharactersFragment()
         }
         this.findNavController().navigate(action)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding = null
     }
 }
