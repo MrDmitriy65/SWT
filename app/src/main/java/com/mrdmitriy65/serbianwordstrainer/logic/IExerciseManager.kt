@@ -11,7 +11,7 @@ interface IExerciseManager : Serializable {
     fun configureExercises()
     fun setAnswer(userAnswer: String?)
     fun setNextExercise()
-    fun isTrainigComplete(): Boolean
+    fun isTrainingComplete(): Boolean
     fun getAnswers(exercise: Exercise): List<String>
     fun getResults(): List<Exercise>
 

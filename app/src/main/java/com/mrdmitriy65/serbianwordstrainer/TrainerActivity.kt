@@ -7,6 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.mrdmitriy65.serbianwordstrainer.databinding.ActivityTrainerBinding
 
+private const val SERBIAN_TTS_VOICE = "sr"
 class TrainerActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTrainerBinding
     private lateinit var navController: NavController
@@ -29,13 +30,13 @@ class TrainerActivity : AppCompatActivity() {
         val onInitListener = TextToSpeech.OnInitListener {
             if (it == TextToSpeech.SUCCESS) {
                 tts.voice =
-                    tts.voices?.find { it.name == "sr" } ?: tts.defaultVoice
+                    tts.voices?.find { it.name == SERBIAN_TTS_VOICE } ?: tts.defaultVoice
             }
         }
         tts = TextToSpeech(this, onInitListener)
     }
 
-    public fun getTestToSpeach(): TextToSpeech {
+    fun getTestToSpeach(): TextToSpeech {
         return tts
     }
 }

@@ -28,7 +28,7 @@ class TrainingResultFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         super.onCreate(savedInstanceState)
         _binding = FragmentTrainingResultBinding.inflate(inflater, container, false)
         return binding.root

@@ -31,7 +31,7 @@ class WriteAnswerExerciseFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         super.onCreate(savedInstanceState)
         _binding = FragmentWriteAnswerExerciseBinding.inflate(inflater, container, false)
         return binding.root
@@ -43,9 +43,9 @@ class WriteAnswerExerciseFragment : Fragment() {
         val exercise = sharedViewModel.getCurrentExercise()
 
         binding.nextExerciseButton.setOnClickListener { choseAnswer() }
-        binding.answerFieldEditText.setOnKeyListener { view, keyCode, _ ->
+        binding.answerFieldEditText.setOnKeyListener { viewParam, keyCode, _ ->
             handleKeyEvent(
-                view,
+                viewParam,
                 keyCode
             )
         }
@@ -63,7 +63,7 @@ class WriteAnswerExerciseFragment : Fragment() {
         if (keyCode == KeyEvent.KEYCODE_ENTER) {
             // Hide the keyboard
             val inputMethodManager =
-                getActivity()?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
             return true
         }

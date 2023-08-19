@@ -51,19 +51,4 @@ class CharactersButtonAdapter(
     override fun getItemCount(): Int {
         return answerCharacters.count()
     }
-
-//    fun getLayoutManager(context: Context): RecyclerView.LayoutManager {
-//        val layout = GridLayoutManager(context, 4)
-//        layout.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-//            override fun getSpanSize(position: Int): Int {
-//                val rows = answer.length / 4
-//                if (rows * 4 > position) {
-//                    return 1
-//                } else {
-//                    return 4 - answer.length % 4
-//                }
-//            }
-//        }
-//        return layout
-//    }
 }

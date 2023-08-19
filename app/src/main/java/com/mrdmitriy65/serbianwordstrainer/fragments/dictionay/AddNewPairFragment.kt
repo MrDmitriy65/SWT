@@ -27,7 +27,7 @@ class AddNewPairFragment : Fragment() {
     private var _binding: FragmentAddNewPairBinding? = null
     private val binding get() = _binding!!
 
-    var _selectedCategoryId: Int = -1
+    var selectedCategoryId: Int = -1
 
     private val viewModel: DictionaryViewModel by activityViewModels {
         DictionaryViewModelFactory(
@@ -39,7 +39,7 @@ class AddNewPairFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentAddNewPairBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -50,7 +50,7 @@ class AddNewPairFragment : Fragment() {
         viewModel.allCategories
             .observe(this.viewLifecycleOwner) {
                 binding.apply {
-                    // TODO добавить категорию по умолчанию, которую нельзя выбрать
+                    // TODO добавить категорию по умолчанию
                     val adapter =
                         ArrayAdapter(
                             this@AddNewPairFragment.requireContext(),
@@ -67,11 +67,11 @@ class AddNewPairFragment : Fragment() {
                                 p2: Int,
                                 p3: Long
                             ) {
-                                _selectedCategoryId = it[p2].id
+                                selectedCategoryId = it[p2].id
                             }
 
                             override fun onNothingSelected(p0: AdapterView<*>?) {
-                                _selectedCategoryId = -1
+                                selectedCategoryId = -1
                             }
                         }
                     val startCategory = it.find { x -> x.id == navigationArgs.categoryId }
@@ -92,15 +92,15 @@ class AddNewPairFragment : Fragment() {
 
     private fun addNewCategoryDialog() {
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Введите название категории")
+            .setTitle(getString(R.string.add_new_pair_fragment_add_new_category))
             .setView(R.layout.dialog_edittext)
-            .setNegativeButton("Отмена") { _, _ -> }
-            .setPositiveButton("Добавить") { dialog, _ ->
+            .setNegativeButton(getString(R.string.button_cancel)) { _, _ -> }
+            .setPositiveButton(getString(R.string.button_add)) { dialog, _ ->
                     val et = (dialog as AlertDialog)
                         .findViewById<EditText>(R.id.new_category_name)
                     val newName = et?.text.toString().trim()
-                    if(newName.isEmpty() == true){
-                        showToast("Пустое название категории")
+                    if(newName.isEmpty()){
+                        showToast(getString(R.string.add_new_pair_fragment_empty_category_name))
                     }
                     else {
                         viewModel.addNewCategory(newName)
@@ -136,37 +136,37 @@ class AddNewPairFragment : Fragment() {
                     binding.russianWord.text.toString(),
                     binding.serbianWord.text.toString(),
                     binding.comment.text.toString(),
-                    _selectedCategoryId
+                    selectedCategoryId
                 )
-                showToast("Изменения сохранены")
+                showToast(getString(R.string.text_changes_saved))
                 val action =
                     AddNewPairFragmentDirections.actionAddNewPairFragmentToWordPairsListFragment(
-                        _selectedCategoryId
+                        selectedCategoryId
                     )
                 findNavController().navigate(action)
             } else {
-                showToast("Нельзя сохранить пару")
+                showToast(getString(R.string.add_new_pair_fragment_can_not_save_pair))
             }
         }
 
     }
 
 
-    fun addNewPair() {
+    private fun addNewPair() {
         if (isPairValid()) {
             viewModel.addNewPair(
                 binding.russianWord.text.toString(),
                 binding.serbianWord.text.toString(),
-                _selectedCategoryId,
+                selectedCategoryId,
                 binding.comment.text.toString()
             )
-            showToast("Пара добавлена")
+            showToast(getString(R.string.add_new_pair_fragment_pair_added))
 
             binding.russianWord.text.clear()
             binding.serbianWord.text.clear()
             binding.comment.text.clear()
         } else {
-            showToast("Данные неверны")
+            showToast(getString(R.string.add_new_pair_fragment_data_is_not_correct))
         }
     }
 
@@ -174,7 +174,7 @@ class AddNewPairFragment : Fragment() {
         return viewModel.isPairValid(
             binding.russianWord.text.toString(),
             binding.serbianWord.text.toString(),
-            _selectedCategoryId
+            selectedCategoryId
         )
     }
 

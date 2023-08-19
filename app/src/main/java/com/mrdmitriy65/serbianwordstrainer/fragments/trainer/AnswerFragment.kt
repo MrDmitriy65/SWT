@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.mrdmitriy65.serbianwordstrainer.R
 import com.mrdmitriy65.serbianwordstrainer.SerbianWordsTrainerApplication
 import com.mrdmitriy65.serbianwordstrainer.databinding.FragmentAnswerBinding
 import com.mrdmitriy65.serbianwordstrainer.models.ExerciseType
@@ -28,7 +27,7 @@ class AnswerFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val fragmentBinding = FragmentAnswerBinding.inflate(inflater, container, false)
         binding = fragmentBinding
 

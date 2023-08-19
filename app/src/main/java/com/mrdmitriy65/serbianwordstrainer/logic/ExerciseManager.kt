@@ -56,7 +56,7 @@ class ExerciseManager(
         currentExerciseNumber++
     }
 
-    override fun isTrainigComplete(): Boolean {
+    override fun isTrainingComplete(): Boolean {
         return currentExerciseNumber >= exerciseList.count()
     }
 

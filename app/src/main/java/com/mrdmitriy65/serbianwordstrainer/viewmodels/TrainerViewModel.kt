@@ -47,7 +47,7 @@ class TrainerViewModel(
     }
 
     fun isTrainingComplete(): Boolean {
-        return manager.isTrainigComplete()
+        return manager.isTrainingComplete()
     }
 
     fun setNextExercise() {
