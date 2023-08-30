@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.mrdmitriy65.serbianwordstrainer.R
 import com.mrdmitriy65.serbianwordstrainer.SerbianWordsTrainerApplication
 import com.mrdmitriy65.serbianwordstrainer.adapters.ResultListAdapter
@@ -42,6 +43,11 @@ class TrainingResultFragment : Fragment() {
 
         binding.resultList.adapter = adapter
         binding.resultList.setHasFixedSize(true)
+
+        binding.completeTraining.setOnClickListener {
+            val action = TrainingResultFragmentDirections.actionTrainingResultFragmentToStartLearnFragment()
+            findNavController().navigate(action)
+        }
 
         binding.resultText.text = getString(R.string.exercise_results,
             results.count { it.isCorrect }.toString(),

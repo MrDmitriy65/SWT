@@ -29,6 +29,9 @@
     <!-- Chose From Variants fragment -->
     <string name="chose_from_variants_fragment_play_sound">Прослушать слово</string>
 
+    <!-- Training Result Variants fragment -->
+    <string name="training_result_fragment_complete_training">Завершить</string>
+
     <string name="answer_button_description">Кнопка для ответа</string>
     <string name="answer_text_field">Ответ</string>
     <string name="next_exercise_button">Далее</string>
