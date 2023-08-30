@@ -43,9 +43,9 @@ class ChoseFromVariantsFragment : Fragment() {
             chooseFromVariantFragment = this@ChoseFromVariantsFragment
             answers = sharedViewModel.getAnswers()
         }
-
+        
         if (sharedViewModel.getCurrentExercise().isSpeakable) {
-            sharedViewModel.playQuestion((activity as TrainerActivity).getTestToSpeach())
+            sharedViewModel.playQuestion((activity as TrainerActivity).getTextToSpeach())
         }
     }
 
@@ -62,7 +62,7 @@ class ChoseFromVariantsFragment : Fragment() {
     }
 
     fun playSound() {
-        val tts = (activity as TrainerActivity).getTestToSpeach()
+        val tts = (activity as TrainerActivity).getTextToSpeach()
         sharedViewModel.playQuestion(tts)
     }
 }

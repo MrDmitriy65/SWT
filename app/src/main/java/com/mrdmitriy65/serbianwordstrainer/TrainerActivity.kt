@@ -36,7 +36,7 @@ class TrainerActivity : AppCompatActivity() {
         tts = TextToSpeech(this, onInitListener)
     }
 
-    fun getTestToSpeach(): TextToSpeech {
+    fun getTextToSpeach(): TextToSpeech {
         return tts
     }
 }

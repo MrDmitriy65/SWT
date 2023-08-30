@@ -43,6 +43,7 @@ class WriteAnswerExerciseFragment : Fragment() {
         val exercise = sharedViewModel.getCurrentExercise()
 
         binding.nextExerciseButton.setOnClickListener { choseAnswer() }
+        binding.skipExerciseButton.setOnClickListener { choseAnswer() }
         binding.answerFieldEditText.setOnKeyListener { viewParam, keyCode, _ ->
             handleKeyEvent(
                 viewParam,
