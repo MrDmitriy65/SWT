@@ -20,6 +20,7 @@
     <string name="add_new_pair_fragment_russian_word">Русское слово</string>
     <string name="add_new_pair_fragment_serbian_word">Сербское слово</string>
     <string name="add_new_pair_fragment_comment">Комментарий</string>
+    <string name="add_new_pair_fragment_pronunciation">Произношение</string>
     <string name="add_new_pair_fragment_add_new_category">Введите название категории</string>
     <string name="add_new_pair_fragment_empty_category_name">Пустое название категории</string>
     <string name="add_new_pair_fragment_can_not_save_pair">Нельзя сохранить пару</string>

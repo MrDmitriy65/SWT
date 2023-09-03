@@ -1,6 +1,7 @@
 package com.mrdmitriy65.serbianwordstrainer.fragments.dictionay
 
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +21,7 @@ import com.mrdmitriy65.serbianwordstrainer.databinding.FragmentAddNewPairBinding
 import com.mrdmitriy65.serbianwordstrainer.viewmodels.DictionaryViewModel
 import com.mrdmitriy65.serbianwordstrainer.viewmodels.DictionaryViewModelFactory
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.mrdmitriy65.serbianwordstrainer.ITts
 
 class AddNewPairFragment : Fragment() {
     private val navigationArgs: AddNewPairFragmentArgs by navArgs()
@@ -88,6 +90,7 @@ class AddNewPairFragment : Fragment() {
         } else {
             bindAddNewPair()
         }
+        binding.playWord.setOnClickListener{playSound()}
     }
 
     private fun addNewCategoryDialog() {
@@ -96,15 +99,14 @@ class AddNewPairFragment : Fragment() {
             .setView(R.layout.dialog_edittext)
             .setNegativeButton(getString(R.string.button_cancel)) { _, _ -> }
             .setPositiveButton(getString(R.string.button_add)) { dialog, _ ->
-                    val et = (dialog as AlertDialog)
-                        .findViewById<EditText>(R.id.new_category_name)
-                    val newName = et?.text.toString().trim()
-                    if(newName.isEmpty()){
-                        showToast(getString(R.string.add_new_pair_fragment_empty_category_name))
-                    }
-                    else {
-                        viewModel.addNewCategory(newName)
-                    }
+                val et = (dialog as AlertDialog)
+                    .findViewById<EditText>(R.id.new_category_name)
+                val newName = et?.text.toString().trim()
+                if (newName.isEmpty()) {
+                    showToast(getString(R.string.add_new_pair_fragment_empty_category_name))
+                } else {
+                    viewModel.addNewCategory(newName)
+                }
             }
             .show()
     }
@@ -182,5 +184,24 @@ class AddNewPairFragment : Fragment() {
         Toast
             .makeText(this.requireContext(), text, Toast.LENGTH_SHORT)
             .show()
+    }
+
+    fun playSound() {
+        var toPronounce: String? = null
+
+        if (!binding.pronunciation.text.toString().isEmpty())
+            toPronounce = binding.pronunciation.text.toString()
+        else if (!binding.serbianWord.text.toString().isEmpty())
+            toPronounce = binding.serbianWord.text.toString()
+        else
+            return
+
+        val tts = (activity as ITts).getTextToSpeech()
+        tts.speak(
+            toPronounce,
+            TextToSpeech.QUEUE_FLUSH,
+            Bundle(),
+            toPronounce
+        )
     }
 }

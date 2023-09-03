@@ -5,10 +5,10 @@ import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.mrdmitriy65.serbianwordstrainer.constants.Constants.Companion.SERBIAN_TTS_VOICE
 import com.mrdmitriy65.serbianwordstrainer.databinding.ActivityTrainerBinding
 
-private const val SERBIAN_TTS_VOICE = "sr"
-class TrainerActivity : AppCompatActivity() {
+class TrainerActivity : AppCompatActivity(), ITts {
     private lateinit var binding: ActivityTrainerBinding
     private lateinit var navController: NavController
     private lateinit var tts: TextToSpeech
@@ -36,7 +36,7 @@ class TrainerActivity : AppCompatActivity() {
         tts = TextToSpeech(this, onInitListener)
     }
 
-    fun getTextToSpeach(): TextToSpeech {
+    override fun getTextToSpeech(): TextToSpeech {
         return tts
     }
 }

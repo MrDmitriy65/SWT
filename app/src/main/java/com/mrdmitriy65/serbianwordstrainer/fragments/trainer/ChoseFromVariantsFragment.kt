@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.mrdmitriy65.serbianwordstrainer.ITts
 import com.mrdmitriy65.serbianwordstrainer.SerbianWordsTrainerApplication
 import com.mrdmitriy65.serbianwordstrainer.TrainerActivity
 import com.mrdmitriy65.serbianwordstrainer.databinding.FragmentChoseFromVariantsBinding
@@ -45,7 +46,7 @@ class ChoseFromVariantsFragment : Fragment() {
         }
         
         if (sharedViewModel.getCurrentExercise().isSpeakable) {
-            sharedViewModel.playQuestion((activity as TrainerActivity).getTextToSpeach())
+            sharedViewModel.playQuestion((activity as ITts).getTextToSpeech())
         }
     }
 
@@ -62,7 +63,7 @@ class ChoseFromVariantsFragment : Fragment() {
     }
 
     fun playSound() {
-        val tts = (activity as TrainerActivity).getTextToSpeach()
+        val tts = (activity as ITts).getTextToSpeech()
         sharedViewModel.playQuestion(tts)
     }
 }
