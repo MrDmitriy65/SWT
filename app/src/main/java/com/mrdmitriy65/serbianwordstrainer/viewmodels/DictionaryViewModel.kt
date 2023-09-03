@@ -26,7 +26,7 @@ class DictionaryViewModel(
         }
     }
 
-    fun addNewPair(russian: String, serbian: String, categoryId: Int, comment: String = "") {
+    fun addNewPair(russian: String, serbian: String, categoryId: Int, comment: String = "", pronunciation: String = "") {
         viewModelScope.launch {
             if (!wordPairDao.isWordPairExists(russian, serbian)) {
                 wordPairDao.insert(
@@ -34,7 +34,8 @@ class DictionaryViewModel(
                         russian = russian,
                         serbian = serbian,
                         categoryId = categoryId,
-                        comment = comment
+                        comment = comment,
+                        pronunciation = pronunciation
                     )
                 )
             }
@@ -66,9 +67,9 @@ class DictionaryViewModel(
 
     fun getPairById(id:Int):LiveData<WordPair> = wordPairDao.getWordPairById(id).asLiveData()
 
-    fun updatePair(id: Int, russian: String, serbian: String, comment: String, categoryId: Int){
+    fun updatePair(id: Int, russian: String, serbian: String, comment: String, categoryId: Int, pronunciation: String = ""){
         viewModelScope.launch {
-            val wordPair = WordPair(id, russian, serbian, categoryId, comment)
+            val wordPair = WordPair(id, russian, serbian, categoryId, comment, pronunciation)
             wordPairDao.update(wordPair)
         }
     }

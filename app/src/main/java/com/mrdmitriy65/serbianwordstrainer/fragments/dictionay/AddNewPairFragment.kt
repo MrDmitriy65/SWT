@@ -123,6 +123,7 @@ class AddNewPairFragment : Fragment() {
                 russianWord.setText(it.russian, TextView.BufferType.SPANNABLE)
                 serbianWord.setText(it.serbian, TextView.BufferType.SPANNABLE)
                 comment.setText(it.comment, TextView.BufferType.SPANNABLE)
+                pronunciation.setText(it.pronunciation, TextView.BufferType.SPANNABLE)
             }
         }
         binding.save.setOnClickListener {
@@ -138,7 +139,8 @@ class AddNewPairFragment : Fragment() {
                     binding.russianWord.text.toString(),
                     binding.serbianWord.text.toString(),
                     binding.comment.text.toString(),
-                    selectedCategoryId
+                    selectedCategoryId,
+                    binding.pronunciation.text.toString()
                 )
                 showToast(getString(R.string.text_changes_saved))
                 val action =
@@ -160,7 +162,8 @@ class AddNewPairFragment : Fragment() {
                 binding.russianWord.text.toString(),
                 binding.serbianWord.text.toString(),
                 selectedCategoryId,
-                binding.comment.text.toString()
+                binding.comment.text.toString(),
+                binding.pronunciation.text.toString()
             )
             showToast(getString(R.string.add_new_pair_fragment_pair_added))
 
