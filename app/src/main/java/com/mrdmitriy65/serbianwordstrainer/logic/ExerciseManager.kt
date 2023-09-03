@@ -29,7 +29,7 @@ class ExerciseManager(
             val exercise =
                 ExercisePair(pair.word.trim(), pair.translate.trim(), TranslationType.DIRECT)
             val exerciseReverse =
-                ExercisePair(pair.word.trim(), pair.translate.trim(), TranslationType.REVERSE)
+                ExercisePair(pair.word.trim(), pair.translate.trim(), TranslationType.REVERSE, pair.pronunciation)
 
             exerciseList.add(Exercise(exercise, ExerciseType.CHOSE_FROM_VARIANTS))
             exerciseList.add(Exercise(exerciseReverse, ExerciseType.CHOSE_FROM_VARIANTS, true))

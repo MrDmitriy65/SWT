@@ -3,7 +3,8 @@ package com.mrdmitriy65.serbianwordstrainer.models
 class ExercisePair(
     private val questionWord: String,
     private val answerWord: String,
-    val translationType: TranslationType
+    val translationType: TranslationType,
+    val pronounce: String = ""
 ) {
 
     val question: String

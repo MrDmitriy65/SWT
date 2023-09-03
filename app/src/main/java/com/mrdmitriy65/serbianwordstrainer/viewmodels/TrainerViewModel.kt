@@ -60,12 +60,21 @@ class TrainerViewModel(
 
     fun playQuestion(tts: TextToSpeech) {
         val exercise = manager.getExercise()
+        var toPronounce: String?
+
+        if (!exercise.pair.pronounce.isEmpty())
+            toPronounce = exercise.pair.pronounce
+        else if (!exercise.pair.question.isEmpty())
+            toPronounce = exercise.pair.question
+        else
+            return
+
         if (exercise.isSpeakable) {
             tts.speak(
-                exercise.pair.question,
+                toPronounce,
                 TextToSpeech.QUEUE_FLUSH,
                 Bundle(),
-                exercise.pair.question
+                toPronounce
             )
         }
     }

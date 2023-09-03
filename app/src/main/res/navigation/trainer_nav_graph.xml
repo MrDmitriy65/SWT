@@ -83,6 +83,7 @@
         <action
             android:id="@+id/action_trainingResultFragment_to_startLearnFragment"
             app:destination="@id/startLearnFragment"
-            app:popUpTo="@id/startLearnFragment" />
+            app:popUpTo="@id/startLearnFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

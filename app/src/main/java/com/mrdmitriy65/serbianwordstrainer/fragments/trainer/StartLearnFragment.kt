@@ -42,7 +42,7 @@ class StartLearnFragment : Fragment() {
 
         val adapter = WordTranslatePairAdapter()
         sharedViewModel.allWords.observe(this.viewLifecycleOwner){
-            val toLearn = it.shuffled().map { TranslatePair(it.russian, it.serbian) }
+            val toLearn = it.shuffled().map { TranslatePair(it.russian, it.serbian, it.pronunciation) }
             sharedViewModel.setWordsToLearn(toLearn)
             adapter.submitList(sharedViewModel.wordsToLearn)
         }
