@@ -1,15 +1,14 @@
 package com.mrdmitriy65.serbianwordstrainer.fragments.trainer
 
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.mrdmitriy65.serbianwordstrainer.ITts
 import com.mrdmitriy65.serbianwordstrainer.SerbianWordsTrainerApplication
-import com.mrdmitriy65.serbianwordstrainer.TrainerActivity
 import com.mrdmitriy65.serbianwordstrainer.databinding.FragmentChoseFromVariantsBinding
 import com.mrdmitriy65.serbianwordstrainer.viewmodels.TrainerViewModel
 import com.mrdmitriy65.serbianwordstrainer.viewmodels.TrainerViewModelFactory
@@ -17,6 +16,7 @@ import com.mrdmitriy65.serbianwordstrainer.viewmodels.TrainerViewModelFactory
 class ChoseFromVariantsFragment : Fragment() {
 
     private var binding: FragmentChoseFromVariantsBinding? = null
+    private lateinit var tts: TextToSpeech
 
     private val sharedViewModel: TrainerViewModel by activityViewModels {
         TrainerViewModelFactory(
@@ -44,9 +44,10 @@ class ChoseFromVariantsFragment : Fragment() {
             chooseFromVariantFragment = this@ChoseFromVariantsFragment
             answers = sharedViewModel.getAnswers()
         }
-        
+
+        tts = (activity?.application as SerbianWordsTrainerApplication).tts
         if (sharedViewModel.getCurrentExercise().isSpeakable) {
-            sharedViewModel.playQuestion((activity as ITts).getTextToSpeech())
+            sharedViewModel.playQuestion(tts)
         }
     }
 
@@ -63,7 +64,6 @@ class ChoseFromVariantsFragment : Fragment() {
     }
 
     fun playSound() {
-        val tts = (activity as ITts).getTextToSpeech()
         sharedViewModel.playQuestion(tts)
     }
 }

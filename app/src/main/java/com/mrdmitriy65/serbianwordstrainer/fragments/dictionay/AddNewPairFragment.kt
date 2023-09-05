@@ -21,10 +21,10 @@ import com.mrdmitriy65.serbianwordstrainer.databinding.FragmentAddNewPairBinding
 import com.mrdmitriy65.serbianwordstrainer.viewmodels.DictionaryViewModel
 import com.mrdmitriy65.serbianwordstrainer.viewmodels.DictionaryViewModelFactory
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.mrdmitriy65.serbianwordstrainer.ITts
 
 class AddNewPairFragment : Fragment() {
     private val navigationArgs: AddNewPairFragmentArgs by navArgs()
+    private lateinit var tts : TextToSpeech
 
     private var _binding: FragmentAddNewPairBinding? = null
     private val binding get() = _binding!!
@@ -91,6 +91,8 @@ class AddNewPairFragment : Fragment() {
             bindAddNewPair()
         }
         binding.playWord.setOnClickListener{playSound()}
+
+        tts = (activity?.application as SerbianWordsTrainerApplication).tts
     }
 
     private fun addNewCategoryDialog() {
@@ -190,7 +192,7 @@ class AddNewPairFragment : Fragment() {
     }
 
     fun playSound() {
-        var toPronounce: String? = null
+        var toPronounce: String?
 
         if (!binding.pronunciation.text.toString().isEmpty())
             toPronounce = binding.pronunciation.text.toString()
@@ -199,7 +201,6 @@ class AddNewPairFragment : Fragment() {
         else
             return
 
-        val tts = (activity as ITts).getTextToSpeech()
         tts.speak(
             toPronounce,
             TextToSpeech.QUEUE_FLUSH,
