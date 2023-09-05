@@ -43,7 +43,7 @@
 
     <Spinner
         android:id="@+id/categories"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/comment"
         app:layout_constraintBottom_toBottomOf="@id/add_new_category"
@@ -61,14 +61,14 @@
 
     <EditText
         android:id="@+id/pronunciation"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/add_new_pair_fragment_pronunciation"
         android:autofillHints="@string/add_new_pair_fragment_pronunciation"
         android:inputType="textAutoComplete"
         app:layout_constraintTop_toBottomOf="@id/add_new_category"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/play_word"
         />
 
     <View
