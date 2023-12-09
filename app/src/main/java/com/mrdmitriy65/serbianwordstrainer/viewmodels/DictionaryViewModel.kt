@@ -1,6 +1,7 @@
 package com.mrdmitriy65.serbianwordstrainer.viewmodels
 
 import androidx.lifecycle.*
+import com.mrdmitriy65.serbianwordstrainer.constants.Constants.Companion.WORD_START_LEARN_LEVEL
 import com.mrdmitriy65.serbianwordstrainer.data.WordPairDao
 import com.mrdmitriy65.serbianwordstrainer.data.entities.Category
 import com.mrdmitriy65.serbianwordstrainer.data.entities.WordPair
@@ -35,7 +36,8 @@ class DictionaryViewModel(
                         serbian = serbian,
                         categoryId = categoryId,
                         comment = comment,
-                        pronunciation = pronunciation
+                        pronunciation = pronunciation,
+                        learnLevel = WORD_START_LEARN_LEVEL
                     )
                 )
             }
@@ -69,7 +71,7 @@ class DictionaryViewModel(
 
     fun updatePair(id: Int, russian: String, serbian: String, comment: String, categoryId: Int, pronunciation: String = ""){
         viewModelScope.launch {
-            val wordPair = WordPair(id, russian, serbian, categoryId, comment, pronunciation)
+            val wordPair = WordPair(id, russian, serbian, categoryId, comment, pronunciation, WORD_START_LEARN_LEVEL)
             wordPairDao.update(wordPair)
         }
     }

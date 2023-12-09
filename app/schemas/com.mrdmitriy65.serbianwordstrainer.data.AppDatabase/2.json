@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "9c2e546ff056c286c2f8f77529f95328",
+    "identityHash": "fd87a9605ecf039148f31fa6989fd14b",
     "entities": [
       {
         "tableName": "word_pairs",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `russian` TEXT NOT NULL, `serbian` TEXT NOT NULL, `category_id` INTEGER NOT NULL, `comment` TEXT NOT NULL, `pronunciation` TEXT NOT NULL DEFAULT '', FOREIGN KEY(`category_id`) REFERENCES `categories`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `russian` TEXT NOT NULL, `serbian` TEXT NOT NULL, `category_id` INTEGER NOT NULL, `comment` TEXT NOT NULL, `pronunciation` TEXT NOT NULL DEFAULT '', `learn_level` INTEGER NOT NULL DEFAULT 0, FOREIGN KEY(`category_id`) REFERENCES `categories`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "id",
@@ -44,6 +44,13 @@
             "affinity": "TEXT",
             "notNull": true,
             "defaultValue": "''"
+          },
+          {
+            "fieldPath": "learnLevel",
+            "columnName": "learn_level",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
           }
         ],
         "primaryKey": {
@@ -97,7 +104,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9c2e546ff056c286c2f8f77529f95328')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'fd87a9605ecf039148f31fa6989fd14b')"
     ]
   }
 }

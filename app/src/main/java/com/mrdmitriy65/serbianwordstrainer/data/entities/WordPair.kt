@@ -27,5 +27,7 @@ data class WordPair(
     @ColumnInfo(name = "comment")
     val comment: String,
     @ColumnInfo(name = "pronunciation", defaultValue = "")
-    val pronunciation: String
+    val pronunciation: String,
+    @ColumnInfo(name = "learn_level", defaultValue = "0")
+    val learnLevel: Int
 )
