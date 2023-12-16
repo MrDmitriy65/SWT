@@ -10,6 +10,7 @@ class Constants {
         const val WORD_ANSWERS_TO_INCREASE_EXERCISE_LEVEL = 3
 
         const val EXERCISE_BUFFER_WORDS_COUNT = 5
+        const val EXERCISE_WORDS_COUNT_IN_EXERCISE = 5
         const val EXERCISE_PORTION_ADD_TO_BUFFER_WORDS_COUNT = 5
 
     }

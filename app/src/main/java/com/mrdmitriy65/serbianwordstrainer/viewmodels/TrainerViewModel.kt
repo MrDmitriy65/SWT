@@ -10,36 +10,47 @@ import com.mrdmitriy65.serbianwordstrainer.data.WordPairDao
 import com.mrdmitriy65.serbianwordstrainer.data.entities.WordPair
 import com.mrdmitriy65.serbianwordstrainer.logic.ExerciseManager
 import com.mrdmitriy65.serbianwordstrainer.logic.IExerciseManager
+import com.mrdmitriy65.serbianwordstrainer.logic.LearnStartedWordsExerciseGenerator
+import com.mrdmitriy65.serbianwordstrainer.logic.factories.ExerciseManagerFactory
 import com.mrdmitriy65.serbianwordstrainer.models.Exercise
 import com.mrdmitriy65.serbianwordstrainer.models.TranslatePair
+import kotlinx.coroutines.runBlocking
 
 class TrainerViewModel(
-    wordPairDao: WordPairDao
+    val wordPairDao: WordPairDao
 ) : ViewModel() {
     val allWords: LiveData<List<WordPair>> = wordPairDao.getAllWordPairs().asLiveData()
 
-    private val manager: IExerciseManager = ExerciseManager()
+    private var manager: IExerciseManager = ExerciseManager()
 
     val wordsToLearn get() = manager.wordToLearn
 
+    // TODO remove in new version
     fun resetWords() {
+        manager = ExerciseManager()
         manager.resetWords()
     }
 
+    fun startFloat(){
+        manager = ExerciseManagerFactory().CreateExerciseManager(wordPairDao)
+    }
+
+    // TODO remove in new version
     fun setWordsToLearn(words: List<TranslatePair>, wordsToLearnCount: Int = 4) {
         manager.setWords(words, wordsToLearnCount)
     }
 
+    // TODO remove in new version
     fun configureManager() {
         manager.configureExercises()
     }
 
     fun getCurrentExercise(): Exercise {
-        return manager.getExercise()
+        return manager.getCurrentExercise()
     }
 
     fun getAnswers(): List<String> {
-        return manager.getAnswers(getCurrentExercise())
+        return manager.getPosibleAnswers(getCurrentExercise())
     }
 
     fun setAnswer(answer: String) {
@@ -59,7 +70,7 @@ class TrainerViewModel(
     }
 
     fun playQuestion(tts: TextToSpeech) {
-        val exercise = manager.getExercise()
+        val exercise = manager.getCurrentExercise()
         var toPronounce: String?
 
         if (!exercise.pair.pronounce.isEmpty())

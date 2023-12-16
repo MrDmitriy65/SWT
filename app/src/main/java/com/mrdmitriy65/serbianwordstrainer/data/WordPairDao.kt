@@ -38,6 +38,9 @@ interface WordPairDao {
     @Query("SELECT * FROM word_pairs WHERE learn_level = 0 LIMIT :count")
     suspend fun getWordPairsNotStarted(count: Int): List<WordPair>
 
+    @Query("SELECT * FROM word_pairs WHERE russian not in (:words) AND serbian not in (:words) ORDER BY RANDOM() LIMIT :takeCount")
+    suspend fun getRandomWordsNotInRange(words: List<String>, takeCount:Int): List<WordPair>
+
     // Categories
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(catgory: Category)

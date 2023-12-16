@@ -7,12 +7,12 @@ import java.io.Serializable
 interface IExerciseManager : Serializable {
     val wordToLearn: List<TranslatePair>
 
-    fun getExercise(): Exercise
+    fun getCurrentExercise(): Exercise
     fun configureExercises()
     fun setAnswer(userAnswer: String?)
     fun setNextExercise()
     fun isTrainingComplete(): Boolean
-    fun getAnswers(exercise: Exercise): List<String>
+    fun getPosibleAnswers(exercise: Exercise): List<String>
     fun getResults(): List<Exercise>
 
     fun setWords(wordDictionary: List<TranslatePair>, wordsToLearnCount: Int)

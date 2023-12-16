@@ -10,19 +10,26 @@ import com.mrdmitriy65.serbianwordstrainer.models.TranslationType
 
 class LearnStartedWordsExerciseGenerator(private val dao: WordPairDao) : IExerciseGenerator {
 
-    suspend fun generateExercises(): List<Exercise> {
+    override suspend fun generateExercises(): List<Exercise> {
         val words = getWords()
 
 
         val result = mutableListOf<Exercise>()
 
-        for (word in words){
+        for (word in words.shuffled()){
             val pair = ExercisePair(word.russian.trim(), word.serbian.trim(), TranslationType.DIRECT)
-            val pairReverse = ExercisePair(word.russian.trim(), word.serbian.trim(), TranslationType.DIRECT, word.serbian)
+            val pairReverse = ExercisePair(word.russian.trim(), word.serbian.trim(), TranslationType.REVERSE, word.serbian)
             val type = GetExerciseType(word)
 
-            result.add(Exercise(pair, type, false))
-            result.add(Exercise(pairReverse, type, true))
+
+            if (type == ExerciseType.CHOSE_FROM_VARIANTS){
+                result.add(Exercise(pairReverse, type, true))
+                result.add(Exercise(pair, type, false))
+                result.add(Exercise(pairReverse, type, false))
+            }
+            else {
+                result.add(Exercise(pair, type, false))
+            }
         }
 
         return result.toList()
@@ -42,8 +49,14 @@ class LearnStartedWordsExerciseGenerator(private val dao: WordPairDao) : IExerci
             val difference = buffPotions - currentCountInPortions
             val toAddCount = difference * Constants.EXERCISE_PORTION_ADD_TO_BUFFER_WORDS_COUNT
 
-            return words + dao.getWordPairsNotStarted(toAddCount)
+            return (words + dao.getWordPairsNotStarted(toAddCount)).take(Constants.EXERCISE_WORDS_COUNT_IN_EXERCISE)
         }
+
+        if (words.count() > Constants.EXERCISE_BUFFER_WORDS_COUNT)
+        {
+            return words.shuffled().take(Constants.EXERCISE_WORDS_COUNT_IN_EXERCISE)
+        }
+
         return words
     }
 
@@ -54,5 +67,9 @@ class LearnStartedWordsExerciseGenerator(private val dao: WordPairDao) : IExerci
             1 -> ExerciseType.WRITE_WORD_FROM_CHARACTERS
             else -> ExerciseType.WRITE_ANSWER
         }
+    }
+
+    override suspend fun generateWrongAnswers(words: List<String>, takeCount:Int): List<WordPair> {
+        return dao.getRandomWordsNotInRange(words, takeCount)
     }
 }

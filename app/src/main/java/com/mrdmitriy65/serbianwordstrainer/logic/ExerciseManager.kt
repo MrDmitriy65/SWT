@@ -14,7 +14,7 @@ class ExerciseManager(
     private val exerciseList: MutableList<Exercise> = mutableListOf()
     private var currentExerciseNumber: Int = -1
 
-    override fun getExercise(): Exercise {
+    override fun getCurrentExercise(): Exercise {
         return exerciseList[currentExerciseNumber]
     }
 
@@ -62,7 +62,7 @@ class ExerciseManager(
 
     private fun modifyAnswer(answer: String): String = answer.lowercase().replace('ё', 'е').trim()
 
-    override fun getAnswers(exercise: Exercise): List<String> {
+    override fun getPosibleAnswers(exercise: Exercise): List<String> {
         return wordDictionary.filter { x ->
             !wordToLearn.any { y ->
                 x.word.trim() == y.word.trim() || x.translate.trim() == y.translate.trim()
