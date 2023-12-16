@@ -18,6 +18,8 @@ interface IExerciseManager : Serializable {
     fun setWords(wordDictionary: List<TranslatePair>, wordsToLearnCount: Int)
     fun resetWords()
 
+    fun completeTraining()
+
     companion object {
         const val EXERCISE_MANAGER_KEY = "exercise_manager_key"
     }

@@ -95,4 +95,8 @@ class ExerciseManager(
     override fun resetWords() {
         wordToLearn = wordDictionary.shuffled().take(wordsToLearnCount)
     }
+
+    override fun completeTraining() {
+        return
+    }
 }

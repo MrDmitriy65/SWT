@@ -17,6 +17,9 @@ interface WordPairDao {
     @Update
     suspend fun update(wordPair: WordPair)
 
+    @Query("UPDATE word_pairs SET learn_level = :newWordLevel WHERE id = :id")
+    suspend fun updateLevel(id:Int, newWordLevel: Int)
+
     @Query("SELECT * FROM word_pairs WHERE id = :id")
     fun getWordPairById(id: Int): Flow<WordPair>
 

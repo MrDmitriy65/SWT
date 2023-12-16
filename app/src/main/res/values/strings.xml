@@ -44,6 +44,7 @@
     <string name="categories_list">Список категорий</string>
     <string name="start_learn_button">Начать</string>
     <string name="reset_learn_button">Заменить слова</string>
+    <string name="start_float_training_button">Начать потоковую тренировку</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_dictionary">DictionaryActivity</string>

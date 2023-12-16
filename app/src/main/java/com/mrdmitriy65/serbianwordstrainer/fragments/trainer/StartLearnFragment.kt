@@ -53,6 +53,11 @@ class StartLearnFragment : Fragment() {
             adapter.submitList(sharedViewModel.wordsToLearn)
         }
         binding.startButton.setOnClickListener{
+            sharedViewModel.configureManager()
+            startTraining()
+        }
+        binding.startFloatTrainingButton.setOnClickListener {
+            sharedViewModel.startFloatTraining()
             startTraining()
         }
     }
@@ -63,7 +68,6 @@ class StartLearnFragment : Fragment() {
     }
 
     private fun startTraining() {
-        sharedViewModel.configureManager()
         val exercise = sharedViewModel.getCurrentExercise()
         val action = when(exercise.exerciseType) {
             ExerciseType.CHOSE_FROM_VARIANTS -> StartLearnFragmentDirections.actionStartLearnFragmentToChoseFromVariantsFragment()

@@ -45,6 +45,7 @@ class TrainingResultFragment : Fragment() {
         binding.resultList.setHasFixedSize(true)
 
         binding.completeTraining.setOnClickListener {
+            sharedViewModel.completeTraining()
             val action = TrainingResultFragmentDirections.actionTrainingResultFragmentToStartLearnFragment()
             findNavController().navigate(action)
         }

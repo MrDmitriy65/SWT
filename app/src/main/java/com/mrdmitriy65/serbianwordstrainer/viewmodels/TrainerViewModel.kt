@@ -31,12 +31,13 @@ class TrainerViewModel(
         manager.resetWords()
     }
 
-    fun startFloat(){
+    fun startFloatTraining(){
         manager = ExerciseManagerFactory().CreateExerciseManager(wordPairDao)
     }
 
     // TODO remove in new version
     fun setWordsToLearn(words: List<TranslatePair>, wordsToLearnCount: Int = 4) {
+        manager = ExerciseManager()
         manager.setWords(words, wordsToLearnCount)
     }
 
@@ -88,6 +89,10 @@ class TrainerViewModel(
                 toPronounce
             )
         }
+    }
+
+    fun completeTraining() {
+        manager.completeTraining()
     }
 }
 

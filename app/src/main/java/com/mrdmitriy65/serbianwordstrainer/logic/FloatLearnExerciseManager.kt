@@ -1,12 +1,16 @@
 package com.mrdmitriy65.serbianwordstrainer.logic
 
+import android.util.Log
 import com.mrdmitriy65.serbianwordstrainer.models.Exercise
 import com.mrdmitriy65.serbianwordstrainer.models.TranslatePair
 import com.mrdmitriy65.serbianwordstrainer.models.TranslationType
 import kotlinx.coroutines.runBlocking
 import kotlin.random.Random
 
-class FloatLearnExerciseManager(private val exerciseGenerator: IExerciseGenerator) :
+class FloatLearnExerciseManager(
+    private val exerciseGenerator: IExerciseGenerator,
+    private val resultProcessor: IResultProcessor
+) :
     IExerciseManager {
     private val exercises = runBlocking { return@runBlocking exerciseGenerator.generateExercises() }
 
@@ -18,6 +22,7 @@ class FloatLearnExerciseManager(private val exerciseGenerator: IExerciseGenerato
 
     override fun getCurrentExercise(): Exercise {
         // TODO add index range check
+        Log.d("Index", "${currentExerciseIndex} of ${learningExercises.count()}")
         return learningExercises[currentExerciseIndex]
     }
 
@@ -35,9 +40,14 @@ class FloatLearnExerciseManager(private val exerciseGenerator: IExerciseGenerato
             isCompleted = true
             isCorrect = editedAnswer.equals(editedUserAnswer, true)
 
-            if (!isCorrect && learningExercises.count { x -> x.pair == pair } < 2) {
+            if (!isCorrect && learningExercises.count { x -> x == this } < 2) {
                 val newExercise = Exercise(pair, exerciseType, isSpeakable)
-                val newIndex = Random.nextInt(currentExerciseIndex, learningExercises.count())
+                Log.d("Index", "Index=${currentExerciseIndex} Count=${learningExercises.count()}")
+                val newIndex = if (currentExerciseIndex + 1 == learningExercises.count()) {
+                    currentExerciseIndex + 1
+                } else {
+                    Random.nextInt(currentExerciseIndex + 1, learningExercises.count())
+                }
                 learningExercises.add(newIndex, newExercise)
             }
         }
@@ -87,5 +97,7 @@ class FloatLearnExerciseManager(private val exerciseGenerator: IExerciseGenerato
         TODO("Not yet implemented")
     }
 
-
+    override fun completeTraining() {
+        resultProcessor.processExercises(learningExercises.toList())
+    }
 }
