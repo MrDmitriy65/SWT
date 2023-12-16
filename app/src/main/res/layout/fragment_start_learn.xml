@@ -37,31 +37,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/exercises_list" />
 
-            <Button
-                android:id="@+id/resetButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/small_margin_size"
-                android:layout_marginRight="@dimen/small_margin_size"
-                android:text="@string/reset_learn_button"
-
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/start_button"
-                />
-
-            <Button
-                android:id="@+id/startFloatTrainingButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/small_margin_size"
-                android:layout_marginRight="@dimen/small_margin_size"
-                android:text="@string/start_float_training_button"
-
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/resetButton" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

@@ -11,12 +11,12 @@ import com.mrdmitriy65.serbianwordstrainer.models.TranslationType
 class LearnStartedWordsExerciseGenerator(private val dao: WordPairDao) : IExerciseGenerator {
 
     override suspend fun generateExercises(): List<Exercise> {
-        val words = getWords()
+        val words = getWords().shuffled()
 
 
         val result = mutableListOf<Exercise>()
 
-        for (word in words.shuffled()){
+        for (word in words){
             val pair = ExercisePair(word.russian.trim(), word.serbian.trim(), TranslationType.DIRECT)
             val pairReverse = ExercisePair(word.russian.trim(), word.serbian.trim(), TranslationType.REVERSE, word.serbian)
             val type = GetExerciseType(word)
@@ -40,6 +40,8 @@ class LearnStartedWordsExerciseGenerator(private val dao: WordPairDao) : IExerci
             Constants.WORD_START_LEARN_LEVEL,
             Constants.WORD_LAST_LEARN_LEVEL
         )
+        val result = mutableListOf<WordPair>()
+        result.addAll(words)
 
         if (words.count() < Constants.EXERCISE_BUFFER_WORDS_COUNT) {
             val buffPotions =
@@ -49,15 +51,14 @@ class LearnStartedWordsExerciseGenerator(private val dao: WordPairDao) : IExerci
             val difference = buffPotions - currentCountInPortions
             val toAddCount = difference * Constants.EXERCISE_PORTION_ADD_TO_BUFFER_WORDS_COUNT
 
-            return (words + dao.getWordPairsNotStarted(toAddCount)).take(Constants.EXERCISE_WORDS_COUNT_IN_EXERCISE)
+            result.addAll(dao.getWordPairsNotStarted(toAddCount))
         }
 
-        if (words.count() > Constants.EXERCISE_BUFFER_WORDS_COUNT)
-        {
-            return words.shuffled().take(Constants.EXERCISE_WORDS_COUNT_IN_EXERCISE)
-        }
+        return result
+            .shuffled()
+            .take(Constants.EXERCISE_WORDS_COUNT_IN_EXERCISE)
+            .toList()
 
-        return words
     }
 
     private fun GetExerciseType (word: WordPair): ExerciseType {
@@ -69,7 +70,7 @@ class LearnStartedWordsExerciseGenerator(private val dao: WordPairDao) : IExerci
         }
     }
 
-    override suspend fun generateWrongAnswers(words: List<String>, takeCount:Int): List<WordPair> {
-        return dao.getRandomWordsNotInRange(words, takeCount)
+    override suspend fun generateWrongAnswers(wordsToExclude: List<String>, takeCount:Int): List<WordPair> {
+        return dao.getRandomWordsNotInRange(wordsToExclude, takeCount)
     }
 }

@@ -40,23 +40,7 @@ class StartLearnFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = WordTranslatePairAdapter()
-        sharedViewModel.allWords.observe(this.viewLifecycleOwner){
-            val toLearn = it.shuffled().map { TranslatePair(it.russian, it.serbian, it.pronunciation) }
-            sharedViewModel.setWordsToLearn(toLearn)
-            adapter.submitList(sharedViewModel.wordsToLearn)
-        }
-
-        binding.exercisesList.adapter = adapter
-        binding.resetButton.setOnClickListener{
-            sharedViewModel.resetWords()
-            adapter.submitList(sharedViewModel.wordsToLearn)
-        }
         binding.startButton.setOnClickListener{
-            sharedViewModel.configureManager()
-            startTraining()
-        }
-        binding.startFloatTrainingButton.setOnClickListener {
             sharedViewModel.startFloatTraining()
             startTraining()
         }

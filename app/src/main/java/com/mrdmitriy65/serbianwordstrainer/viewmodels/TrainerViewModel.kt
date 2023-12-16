@@ -2,48 +2,21 @@ package com.mrdmitriy65.serbianwordstrainer.viewmodels
 
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.asLiveData
 import com.mrdmitriy65.serbianwordstrainer.data.WordPairDao
-import com.mrdmitriy65.serbianwordstrainer.data.entities.WordPair
-import com.mrdmitriy65.serbianwordstrainer.logic.ExerciseManager
 import com.mrdmitriy65.serbianwordstrainer.logic.IExerciseManager
-import com.mrdmitriy65.serbianwordstrainer.logic.LearnStartedWordsExerciseGenerator
 import com.mrdmitriy65.serbianwordstrainer.logic.factories.ExerciseManagerFactory
 import com.mrdmitriy65.serbianwordstrainer.models.Exercise
-import com.mrdmitriy65.serbianwordstrainer.models.TranslatePair
-import kotlinx.coroutines.runBlocking
 
 class TrainerViewModel(
     val wordPairDao: WordPairDao
 ) : ViewModel() {
-    val allWords: LiveData<List<WordPair>> = wordPairDao.getAllWordPairs().asLiveData()
 
-    private var manager: IExerciseManager = ExerciseManager()
-
-    val wordsToLearn get() = manager.wordToLearn
-
-    // TODO remove in new version
-    fun resetWords() {
-        manager = ExerciseManager()
-        manager.resetWords()
-    }
+    private lateinit var manager: IExerciseManager
 
     fun startFloatTraining(){
         manager = ExerciseManagerFactory().CreateExerciseManager(wordPairDao)
-    }
-
-    // TODO remove in new version
-    fun setWordsToLearn(words: List<TranslatePair>, wordsToLearnCount: Int = 4) {
-        manager = ExerciseManager()
-        manager.setWords(words, wordsToLearnCount)
-    }
-
-    // TODO remove in new version
-    fun configureManager() {
-        manager.configureExercises()
     }
 
     fun getCurrentExercise(): Exercise {
@@ -51,7 +24,7 @@ class TrainerViewModel(
     }
 
     fun getAnswers(): List<String> {
-        return manager.getPosibleAnswers(getCurrentExercise())
+        return manager.getPossibleAnswers(getCurrentExercise())
     }
 
     fun setAnswer(answer: String) {

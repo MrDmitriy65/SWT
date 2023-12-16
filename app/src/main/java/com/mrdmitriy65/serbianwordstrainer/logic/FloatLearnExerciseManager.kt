@@ -1,6 +1,7 @@
 package com.mrdmitriy65.serbianwordstrainer.logic
 
 import android.util.Log
+import com.mrdmitriy65.serbianwordstrainer.constants.Constants
 import com.mrdmitriy65.serbianwordstrainer.models.Exercise
 import com.mrdmitriy65.serbianwordstrainer.models.TranslatePair
 import com.mrdmitriy65.serbianwordstrainer.models.TranslationType
@@ -17,18 +18,10 @@ class FloatLearnExerciseManager(
     private val learningExercises = exercises.toMutableList()
     private var currentExerciseIndex = 0
 
-    override val wordToLearn: List<TranslatePair>
-        get() = TODO("Not yet implemented")
-
     override fun getCurrentExercise(): Exercise {
         // TODO add index range check
-        Log.d("Index", "${currentExerciseIndex} of ${learningExercises.count()}")
+        Log.d(Constants.LOG_TAG_EXERCISE_TRAINING, "${currentExerciseIndex} of ${learningExercises.count()}")
         return learningExercises[currentExerciseIndex]
-    }
-
-    override fun configureExercises() {
-        // TODO deprecated
-        TODO("Not yet implemented")
     }
 
     override fun setAnswer(userAnswer: String?) {
@@ -42,7 +35,7 @@ class FloatLearnExerciseManager(
 
             if (!isCorrect && learningExercises.count { x -> x == this } < 2) {
                 val newExercise = Exercise(pair, exerciseType, isSpeakable)
-                Log.d("Index", "Index=${currentExerciseIndex} Count=${learningExercises.count()}")
+                Log.d(Constants.LOG_TAG_EXERCISE_TRAINING, "Index=${currentExerciseIndex} Count=${learningExercises.count()}")
                 val newIndex = if (currentExerciseIndex + 1 == learningExercises.count()) {
                     currentExerciseIndex + 1
                 } else {
@@ -63,7 +56,7 @@ class FloatLearnExerciseManager(
         return learningExercises.all { x -> x.isCompleted }
     }
 
-    override fun getPosibleAnswers(exercise: Exercise): List<String> {
+    override fun getPossibleAnswers(exercise: Exercise): List<String> {
         val result = mutableListOf<String>()
         val answers = runBlocking {
             val wrongAnswers = exerciseGenerator.generateWrongAnswers(
@@ -85,16 +78,6 @@ class FloatLearnExerciseManager(
 
     override fun getResults(): List<Exercise> {
         return learningExercises.toList()
-    }
-
-    override fun setWords(wordDictionary: List<TranslatePair>, wordsToLearnCount: Int) {
-        // TODO deprecated
-        TODO("Not yet implemented")
-    }
-
-    override fun resetWords() {
-        // TODO deprecated
-        TODO("Not yet implemented")
     }
 
     override fun completeTraining() {

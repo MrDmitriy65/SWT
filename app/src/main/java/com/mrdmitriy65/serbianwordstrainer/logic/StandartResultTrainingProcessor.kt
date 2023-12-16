@@ -17,6 +17,7 @@ class StandartResultTrainingProcessor(private val dao: WordPairDao) : IResultPro
                 ResultTrainigModel(it.pair.answer, it.pair.question, it.isCorrect)
             }
         }.groupBy { "${it.russian}_${it.serbian}" }
+
         runBlocking {
             for (word in pairs) {
                 val rtm = word.value.first()

@@ -4,5 +4,5 @@ import com.mrdmitriy65.serbianwordstrainer.data.entities.WordPair
 import com.mrdmitriy65.serbianwordstrainer.models.Exercise
 
 interface IResultProcessor {
-    fun processExercises(results: List<Exercise>): Unit
+    fun processExercises(results: List<Exercise>)
 }
