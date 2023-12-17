@@ -3,6 +3,7 @@ package com.mrdmitriy65.serbianwordstrainer.data
 import androidx.room.*
 import com.mrdmitriy65.serbianwordstrainer.data.entities.Category
 import com.mrdmitriy65.serbianwordstrainer.data.entities.WordPair
+import com.mrdmitriy65.serbianwordstrainer.data.relations.CategoryWithWordPair
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -57,9 +58,16 @@ interface WordPairDao {
     @Query("SELECT * FROM categories WHERE id = :id")
     fun getCategoryById(id: Int): Flow<Category>
 
+    @Query("SELECT * FROM categories WHERE name = :name")
+    suspend fun getCategoryByName(name: String): Category
+
     @Query("SELECT EXISTS (SELECT * FROM categories WHERE name = :name LIMIT 1)")
     suspend fun isCategoryExists(name: String): Boolean
 
     @Query("SELECT * FROM categories")
     fun getAllCategories(): Flow<List<Category>>
+
+    // For Backup
+    @Query("SELECT * FROM categories")
+    suspend fun getAllCategoriesWithWords(): List<CategoryWithWordPair>
 }

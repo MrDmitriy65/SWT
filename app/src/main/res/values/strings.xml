@@ -12,6 +12,8 @@
     <string name="main_button_to_training">Тренировка</string>
     <string name="main_button_to_dictionary">Словарь</string>
     <string name="main_button_to_experimental">Тестирование</string>
+    <string name="main_button_create_backup">Создать бекап</string>
+    <string name="main_button_load_backup">Загрузить бекап</string>
 
     <!-- Category fragment -->
     <string name="category_fragment_add_new_pair_button_description">Кнопка для добавления новой пары слов</string>

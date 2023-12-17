@@ -30,6 +30,28 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
+        android:id="@+id/create_backup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="32dp"
+        android:textSize="32sp"
+        android:text="@string/main_button_create_backup"
+        app:layout_constraintTop_toBottomOf="@id/move_to_categories_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/load_backup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="32dp"
+        android:textSize="32sp"
+        android:text="@string/main_button_load_backup"
+        app:layout_constraintTop_toBottomOf="@id/create_backup"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
         android:id="@+id/move_to_experimental_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,7 +61,7 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/move_to_categories_button" />
+        app:layout_constraintTop_toBottomOf="@id/load_backup" />
 
     <TextView
         android:id="@+id/textView"
