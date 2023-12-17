@@ -32,7 +32,7 @@ class LearnStartedWordsExerciseGenerator(private val dao: WordPairDao) : IExerci
             }
         }
 
-        return result.toList()
+        return result.shuffled().toList()
     }
 
     private suspend fun getWords(): List<WordPair> {
