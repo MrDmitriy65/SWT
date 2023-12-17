@@ -21,10 +21,11 @@ import com.mrdmitriy65.serbianwordstrainer.databinding.FragmentAddNewPairBinding
 import com.mrdmitriy65.serbianwordstrainer.viewmodels.DictionaryViewModel
 import com.mrdmitriy65.serbianwordstrainer.viewmodels.DictionaryViewModelFactory
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.mrdmitriy65.serbianwordstrainer.constants.Constants
 
 class AddNewPairFragment : Fragment() {
     private val navigationArgs: AddNewPairFragmentArgs by navArgs()
-    private lateinit var tts : TextToSpeech
+    private lateinit var tts: TextToSpeech
 
     private var _binding: FragmentAddNewPairBinding? = null
     private val binding get() = _binding!!
@@ -90,7 +91,7 @@ class AddNewPairFragment : Fragment() {
         } else {
             bindAddNewPair()
         }
-        binding.playWord.setOnClickListener{playSound()}
+        binding.playWord.setOnClickListener { playSound() }
 
         tts = (activity?.application as SerbianWordsTrainerApplication).tts
     }
@@ -117,6 +118,7 @@ class AddNewPairFragment : Fragment() {
         binding.save.setOnClickListener {
             addNewPair()
         }
+        binding.wordLearnLevel.visibility = View.INVISIBLE
     }
 
     private fun bindEditPair() {
@@ -126,6 +128,11 @@ class AddNewPairFragment : Fragment() {
                 serbianWord.setText(it.serbian, TextView.BufferType.SPANNABLE)
                 comment.setText(it.comment, TextView.BufferType.SPANNABLE)
                 pronunciation.setText(it.pronunciation, TextView.BufferType.SPANNABLE)
+                wordLearnLevel.text = getString(
+                    R.string.add_new_pair_fragment_learn_level_of,
+                    it.learnLevel.toString(),
+                    Constants.WORD_LAST_LEARN_LEVEL.toString()
+                )
             }
         }
         binding.save.setOnClickListener {
