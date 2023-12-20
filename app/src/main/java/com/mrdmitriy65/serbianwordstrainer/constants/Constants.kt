@@ -17,6 +17,6 @@ class Constants {
         const val LOG_TAG_EXERCISE_TRAINING = "Exercise_training"
 
         // Backup constants
-        const val BACKUP_DATABASE_FILE_PATH = "DbBackup.json"
+        const val BACKUP_FILE_NAME = "WordsBackup.json"
     }
 }

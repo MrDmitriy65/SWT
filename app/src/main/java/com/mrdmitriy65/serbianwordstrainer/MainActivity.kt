@@ -1,9 +1,13 @@
 package com.mrdmitriy65.serbianwordstrainer
 
+import android.Manifest
 import android.content.Intent
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import com.google.gson.Gson
 import com.mrdmitriy65.serbianwordstrainer.constants.Constants
 import com.mrdmitriy65.serbianwordstrainer.data.entities.Category
@@ -11,11 +15,12 @@ import com.mrdmitriy65.serbianwordstrainer.data.entities.WordPair
 import com.mrdmitriy65.serbianwordstrainer.databinding.ActivityMainBinding
 import kotlinx.coroutines.runBlocking
 import java.io.BufferedReader
+import java.io.File
+import java.io.FileInputStream
 import java.io.FileNotFoundException
+import java.io.FileOutputStream
 import java.io.IOException
-import java.io.InputStream
 import java.io.InputStreamReader
-import java.io.OutputStreamWriter
 
 
 class MainActivity : AppCompatActivity() {
@@ -31,7 +36,9 @@ class MainActivity : AppCompatActivity() {
         binding.moveToDictionaryButton.setOnClickListener { moveToDictionary() }
         binding.moveToExperimentalButton.setOnClickListener {
         }
-        binding.createBackup.setOnClickListener { createBackup() }
+        binding.createBackup.setOnClickListener {
+            createBackup()
+        }
         binding.loadBackup.setOnClickListener { loadBackup() }
     }
 
@@ -43,6 +50,14 @@ class MainActivity : AppCompatActivity() {
     private fun moveToTraining() {
         val intent = Intent(this, TrainerActivity::class.java)
         startActivity(intent)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     private fun createBackup() {
@@ -66,18 +81,19 @@ class MainActivity : AppCompatActivity() {
                 }
                 val json = Gson().toJson(wordsBackup)
 
-                val outputStreamWriter =
-                    OutputStreamWriter(
-                        this@MainActivity.openFileOutput(
-                            Constants.BACKUP_DATABASE_FILE_PATH,
-                            MODE_PRIVATE
-                        )
-                    )
-                outputStreamWriter.write(json)
-                outputStreamWriter.close()
+                val pathToBackup =
+                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS)
+                val backupFile = File(pathToBackup, Constants.BACKUP_FILE_NAME)
+                val outputStream = FileOutputStream(backupFile)
+                val jsonBytes = json.toByteArray()
+                outputStream.write(jsonBytes)
+                outputStream.close()
             }
         } catch (e: IOException) {
             Log.e("Exception", "File write failed: $e")
+            Toast
+                .makeText(this, "File write failed: $e", Toast.LENGTH_SHORT)
+                .show()
         }
     }
 
@@ -85,7 +101,10 @@ class MainActivity : AppCompatActivity() {
         var ret = ""
 
         try {
-            val inputStream: InputStream = this.openFileInput(Constants.BACKUP_DATABASE_FILE_PATH)
+            val pathToBackup =
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS)
+            val backupFile = File(pathToBackup, Constants.BACKUP_FILE_NAME)
+            val inputStream = FileInputStream(backupFile)
 
             val inputStreamReader = InputStreamReader(inputStream)
             val bufferedReader = BufferedReader(inputStreamReader)
@@ -99,8 +118,16 @@ class MainActivity : AppCompatActivity() {
 
         } catch (e: FileNotFoundException) {
             Log.e("login activity", "File not found: $e")
+            Toast
+                .makeText(this, "File not found: $e", Toast.LENGTH_SHORT)
+                .show()
+            return
         } catch (e: IOException) {
             Log.e("login activity", "Can not read file: $e")
+            Toast
+                .makeText(this, "Can not read file: $e", Toast.LENGTH_SHORT)
+                .show()
+            return
         }
 
 
