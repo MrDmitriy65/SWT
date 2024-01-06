@@ -16,18 +16,29 @@ class LearnStartedWordsExerciseGenerator(private val dao: WordPairDao) : IExerci
 
         val result = mutableListOf<Exercise>()
 
-        for (word in words){
-            val pair = ExercisePair(word.russian.trim(), word.serbian.trim(), TranslationType.DIRECT, word.serbian)
-            val pairReverse = ExercisePair(word.russian.trim(), word.serbian.trim(), TranslationType.REVERSE, word.serbian)
+        for (word in words) {
+            val pronounce = if (word.pronunciation.isEmpty()) word.pronunciation else word.serbian
+            val pair = ExercisePair(
+                word.russian.trim(),
+                word.serbian.trim(),
+                TranslationType.DIRECT,
+                pronounce
+            )
+            val pairReverse = ExercisePair(
+                word.russian.trim(),
+                word.serbian.trim(),
+                TranslationType.REVERSE,
+                pronounce
+            )
+            
             val type = GetExerciseType(word)
-
-            when (type)
-            {
+            when (type) {
                 ExerciseType.CHOSE_FROM_VARIANTS -> {
                     result.add(Exercise(pairReverse, type, true))
                     result.add(Exercise(pair, type, false))
                     result.add(Exercise(pairReverse, type, false))
                 }
+
                 else -> {
                     result.add(Exercise(pair, type, true))
                     result.add(Exercise(pair, type, false))
@@ -64,16 +75,19 @@ class LearnStartedWordsExerciseGenerator(private val dao: WordPairDao) : IExerci
 
     }
 
-    private fun GetExerciseType (word: WordPair): ExerciseType {
+    private fun GetExerciseType(word: WordPair): ExerciseType {
         val level = word.learnLevel / Constants.WORD_ANSWERS_TO_INCREASE_EXERCISE_LEVEL
-        return when(level) {
+        return when (level) {
             0 -> ExerciseType.CHOSE_FROM_VARIANTS
             1 -> ExerciseType.WRITE_WORD_FROM_CHARACTERS
             else -> ExerciseType.WRITE_ANSWER
         }
     }
 
-    override suspend fun generateWrongAnswers(wordsToExclude: List<String>, takeCount:Int): List<WordPair> {
+    override suspend fun generateWrongAnswers(
+        wordsToExclude: List<String>,
+        takeCount: Int
+    ): List<WordPair> {
         return dao.getRandomWordsNotInRange(wordsToExclude, takeCount)
     }
 }
