@@ -121,6 +121,7 @@ class MainActivity : AppCompatActivity() {
             Toast
                 .makeText(this, "File not found: $e", Toast.LENGTH_SHORT)
                 .show()
+            binding.textView.setText(e.message)
             return
         } catch (e: IOException) {
             Log.e("login activity", "Can not read file: $e")
