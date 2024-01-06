@@ -5,6 +5,7 @@
     <string name="button_save">Сохранить</string>
     <string name="button_cancel">Отменить</string>
     <string name="button_add">Добавить</string>
+    <string name="button_delete">Удалить</string>
     <string name="text_changes_saved">Изменения сохранены</string>
 
     <!-- Main Activity -->
@@ -15,8 +16,13 @@
     <string name="main_button_create_backup">Создать бекап</string>
     <string name="main_button_load_backup">Загрузить бекап</string>
 
-    <!-- Category fragment -->
+    <!-- Category list fragment -->
     <string name="category_fragment_add_new_pair_button_description">Кнопка для добавления новой пары слов</string>
+    <string name="category_list_fragment_delete_category_info_message">Вы действительно желаете удалить данную категорию? Удаление категории приведет к удалению всех слов внутри данной категории. Желаете продолжить?</string>
+    <string name="category_list_fragment_delete_category_complete_message">Категория удалена</string>
+
+    <!-- Word pairs list fragment -->
+    <string name="word_pairs_list_fragment_delete_complete">Пара удалена</string>
 
     <!-- Add new pair fragment -->
     <string name="add_new_pair_fragment_russian_word">Русское слово</string>

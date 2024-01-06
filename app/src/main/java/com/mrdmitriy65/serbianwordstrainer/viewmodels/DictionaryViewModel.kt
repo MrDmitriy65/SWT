@@ -27,6 +27,15 @@ class DictionaryViewModel(
         }
     }
 
+    fun deleteCategory(name: String) {
+        viewModelScope.launch {
+            val category = wordPairDao.getCategoryByName(name)
+            wordPairDao.deletePairInCategory(category.id)
+            wordPairDao.delete(category)
+        }
+    }
+
+
     fun addNewPair(russian: String, serbian: String, categoryId: Int, comment: String = "", pronunciation: String = "") {
         viewModelScope.launch {
             if (!wordPairDao.isWordPairExists(russian, serbian)) {
@@ -73,6 +82,12 @@ class DictionaryViewModel(
         viewModelScope.launch {
             val wordPair = WordPair(id, russian, serbian, categoryId, comment, pronunciation, WORD_START_LEARN_LEVEL)
             wordPairDao.update(wordPair)
+        }
+    }
+
+    fun deletePair(russian: String, serbian: String){
+        viewModelScope.launch {
+            wordPairDao.deletePair(russian, serbian)
         }
     }
 }

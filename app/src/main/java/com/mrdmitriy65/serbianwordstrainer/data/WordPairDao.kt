@@ -45,6 +45,12 @@ interface WordPairDao {
     @Query("SELECT * FROM word_pairs WHERE russian not in (:words) AND serbian not in (:words) ORDER BY RANDOM() LIMIT :takeCount")
     suspend fun getRandomWordsNotInRange(words: List<String>, takeCount:Int): List<WordPair>
 
+    @Query("DELETE FROM word_pairs WHERE russian = :russian AND serbian = :serbian")
+    suspend fun deletePair(russian: String, serbian: String)
+
+    @Query("DELETE FROM word_pairs WHERE category_id = :categoryId")
+    suspend fun deletePairInCategory(categoryId: Int)
+
     // Categories
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(catgory: Category)
