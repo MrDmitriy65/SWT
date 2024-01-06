@@ -179,6 +179,7 @@ class AddNewPairFragment : Fragment() {
             binding.russianWord.text.clear()
             binding.serbianWord.text.clear()
             binding.comment.text.clear()
+            binding.pronunciation.text.clear()
         } else {
             showToast(getString(R.string.add_new_pair_fragment_data_is_not_correct))
         }
@@ -199,12 +200,12 @@ class AddNewPairFragment : Fragment() {
     }
 
     fun playSound() {
-        var toPronounce: String?
+        val toPronounce: String?
 
-        if (!binding.pronunciation.text.toString().isEmpty())
-            toPronounce = binding.pronunciation.text.toString()
+        toPronounce = if (!binding.pronunciation.text.toString().isEmpty())
+            binding.pronunciation.text.toString()
         else if (!binding.serbianWord.text.toString().isEmpty())
-            toPronounce = binding.serbianWord.text.toString()
+            binding.serbianWord.text.toString()
         else
             return
 
