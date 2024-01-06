@@ -2,6 +2,7 @@ package com.mrdmitriy65.serbianwordstrainer.fragments.trainer
 
 import android.content.Context
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
 import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -19,6 +20,7 @@ import com.mrdmitriy65.serbianwordstrainer.viewmodels.TrainerViewModelFactory
 class WriteAnswerExerciseFragment : Fragment() {
 
     private var _binding: FragmentWriteAnswerExerciseBinding? = null
+    private lateinit var tts: TextToSpeech
     private val binding get() = _binding!!
 
     private val sharedViewModel: TrainerViewModel by activityViewModels{
@@ -51,7 +53,24 @@ class WriteAnswerExerciseFragment : Fragment() {
             )
         }
 
-        binding.questionText.text = exercise.pair.question
+        tts = (activity?.application as SerbianWordsTrainerApplication).tts
+        if (sharedViewModel.getCurrentExercise().isSpeakable) {
+            binding.questionSound.visibility = View.VISIBLE
+            binding.questionText.visibility = View.INVISIBLE
+            binding.questionSound.setOnClickListener{
+                playSound()
+            }
+            sharedViewModel.playQuestion(tts)
+        }
+        else {
+            binding.questionText.text = exercise.pair.question
+            binding.questionText.visibility = View.VISIBLE
+            binding.questionSound.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun playSound() {
+        sharedViewModel.playQuestion(tts)
     }
 
     private fun choseAnswer() {

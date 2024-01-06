@@ -17,18 +17,21 @@ class LearnStartedWordsExerciseGenerator(private val dao: WordPairDao) : IExerci
         val result = mutableListOf<Exercise>()
 
         for (word in words){
-            val pair = ExercisePair(word.russian.trim(), word.serbian.trim(), TranslationType.DIRECT)
+            val pair = ExercisePair(word.russian.trim(), word.serbian.trim(), TranslationType.DIRECT, word.serbian)
             val pairReverse = ExercisePair(word.russian.trim(), word.serbian.trim(), TranslationType.REVERSE, word.serbian)
             val type = GetExerciseType(word)
 
-
-            if (type == ExerciseType.CHOSE_FROM_VARIANTS){
-                result.add(Exercise(pairReverse, type, true))
-                result.add(Exercise(pair, type, false))
-                result.add(Exercise(pairReverse, type, false))
-            }
-            else {
-                result.add(Exercise(pair, type, false))
+            when (type)
+            {
+                ExerciseType.CHOSE_FROM_VARIANTS -> {
+                    result.add(Exercise(pairReverse, type, true))
+                    result.add(Exercise(pair, type, false))
+                    result.add(Exercise(pairReverse, type, false))
+                }
+                else -> {
+                    result.add(Exercise(pair, type, true))
+                    result.add(Exercise(pair, type, false))
+                }
             }
         }
 

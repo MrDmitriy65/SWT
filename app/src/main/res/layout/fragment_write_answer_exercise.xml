@@ -19,6 +19,16 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="TestText" />
 
+    <ImageButton
+        android:id="@+id/question_sound"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/ic_play_sound"
+        android:contentDescription="@string/chose_from_variants_fragment_play_sound"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/question_text" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/answer_field"
         android:layout_width="match_parent"
