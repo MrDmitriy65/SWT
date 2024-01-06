@@ -17,7 +17,7 @@ class LearnStartedWordsExerciseGenerator(private val dao: WordPairDao) : IExerci
         val result = mutableListOf<Exercise>()
 
         for (word in words) {
-            val pronounce = if (word.pronunciation.isEmpty()) word.pronunciation else word.serbian
+            val pronounce = word.pronunciation.ifEmpty { word.serbian }
             val pair = ExercisePair(
                 word.russian.trim(),
                 word.serbian.trim(),
