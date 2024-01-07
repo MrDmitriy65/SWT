@@ -85,6 +85,7 @@ class WriteAnswerExerciseFragment : Fragment() {
             val inputMethodManager =
                 activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+            choseAnswer()
             return true
         }
         return false
