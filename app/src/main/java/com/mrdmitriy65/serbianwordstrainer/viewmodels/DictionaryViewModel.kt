@@ -1,5 +1,6 @@
 package com.mrdmitriy65.serbianwordstrainer.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.mrdmitriy65.serbianwordstrainer.constants.Constants.Companion.WORD_START_LEARN_LEVEL
 import com.mrdmitriy65.serbianwordstrainer.data.WordPairDao
@@ -52,6 +53,8 @@ class DictionaryViewModel(
             }
         }
     }
+
+    suspend fun isPairExists(russian: String, serbian: String) = wordPairDao.isWordPairExists(russian, serbian)
 
     fun isPairValid(russianWord: String, serbianWord: String, categoryId: Int): Boolean {
         if(russianWord.isBlank() || serbianWord.isBlank() || categoryId < 1){

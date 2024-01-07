@@ -13,6 +13,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.mrdmitriy65.serbianwordstrainer.R
@@ -22,6 +23,7 @@ import com.mrdmitriy65.serbianwordstrainer.viewmodels.DictionaryViewModel
 import com.mrdmitriy65.serbianwordstrainer.viewmodels.DictionaryViewModelFactory
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.mrdmitriy65.serbianwordstrainer.constants.Constants
+import kotlinx.coroutines.launch
 
 class AddNewPairFragment : Fragment() {
     private val navigationArgs: AddNewPairFragmentArgs by navArgs()
@@ -167,15 +169,21 @@ class AddNewPairFragment : Fragment() {
 
     private fun addNewPair() {
         if (isPairValid()) {
-            viewModel.addNewPair(
-                binding.russianWord.text.toString(),
-                binding.serbianWord.text.toString(),
-                selectedCategoryId,
-                binding.comment.text.toString(),
-                binding.pronunciation.text.toString()
-            )
-            showToast(getString(R.string.add_new_pair_fragment_pair_added))
+            // Save data for check and save before it clear
+            val russian = binding.russianWord.text.toString()
+            val serbian = binding.serbianWord.text.toString()
+            val comment = binding.comment.text.toString()
+            val pronunciation = binding.pronunciation.text.toString()
 
+            viewLifecycleOwner.lifecycleScope.launch {
+                val isExists = viewModel.isPairExists(russian, serbian)
+                if (isExists) {
+                    showToast(getString(R.string.add_new_pair_fragment_can_not_save_pair))
+                    return@launch
+                }
+                viewModel.addNewPair(russian, serbian, selectedCategoryId, comment, pronunciation)
+                showToast(getString(R.string.add_new_pair_fragment_pair_added))
+            }
             binding.russianWord.text.clear()
             binding.serbianWord.text.clear()
             binding.comment.text.clear()
