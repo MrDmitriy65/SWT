@@ -1,15 +1,18 @@
 package com.mrdmitriy65.serbianwordstrainer.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.mrdmitriy65.serbianwordstrainer.R
 import com.mrdmitriy65.serbianwordstrainer.databinding.ItemCategoryBinding
 import com.mrdmitriy65.serbianwordstrainer.data.entities.Category
 
-class CategoryListAdapter_new(private val onItemClicked: (Category) -> Unit) :
-    ListAdapter<Category, CategoryListAdapter_new.CategoryViewHolder>(DiffCallback) {
+class CategoryListAdapter(private val onItemClicked: (Category) -> Unit) :
+    ListAdapter<Category, CategoryListAdapter.CategoryViewHolder>(DiffCallback) {
     class CategoryViewHolder(private val binding: ItemCategoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
