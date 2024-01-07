@@ -23,17 +23,20 @@
             android:exported="false"
             android:label="@string/title_activity_dictionary"
             android:parentActivityName="com.mrdmitriy65.serbianwordstrainer.MainActivity"
-            android:theme="@style/Theme.SerbianWordsTrainer.NoActionBar" />
+            android:theme="@style/Theme.SerbianWordsTrainer.NoActionBar"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".TrainerActivity"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name="com.mrdmitriy65.serbianwordstrainer.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
