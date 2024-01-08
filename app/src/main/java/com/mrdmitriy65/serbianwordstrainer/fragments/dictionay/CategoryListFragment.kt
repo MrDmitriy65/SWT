@@ -44,11 +44,7 @@ class CategoryListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = CategoryListAdapter {
-            val action = CategoryListFragmentDirections
-                .actionCategoryListFragmentToWordPairsListFragment(it.id)
-            this.findNavController().navigate(action)
-        }
+        val adapter = CategoryListAdapter(clickAction, deleteAction)
         binding.categoryList.adapter = adapter
         binding.categoryList.setHasFixedSize(false)
         viewModel.allCategories.observe(this.viewLifecycleOwner) {
@@ -63,34 +59,19 @@ class CategoryListFragment : Fragment() {
                 .actionCategoryListFragmentToAddNewPairFragment(-1, -1)
             this.findNavController().navigate(action)
         }
-
-        // TODO here
-//        val ith = ItemTouchHelper(SwipeController())
-//        ith.attachToRecyclerView(binding.categoryList)
-//        val itemTouchHelper = ItemTouchHelper(object : SwipeHelper(binding.categoryList) {
-//            override fun instantiateUnderlayButton(position: Int): List<UnderlayButton> {
-//                return listOf(deleteButton(position))
-//            }
-//        })
-//
-//        itemTouchHelper.attachToRecyclerView(binding.categoryList)
     }
 
-    private fun deleteButton(position: Int): SwipeHelper.UnderlayButton {
-        return SwipeHelper.UnderlayButton(
-            requireContext(),
-            getString(R.string.button_delete),
-            14.0f,
-            android.R.color.holo_red_light,
-            object : SwipeHelper.UnderlayButtonClickListener {
-                override fun onClick() {
-                    deleteCategoryDialog(position)
-
-                }
-            })
+    val deleteAction: (category: Category) -> Unit = {
+        deleteCategoryDialog(it)
     }
 
-    private fun deleteCategoryDialog(position: Int) {
+    val clickAction: (category: Category) -> Unit = {
+        val action = CategoryListFragmentDirections
+            .actionCategoryListFragmentToWordPairsListFragment(it.id)
+        this.findNavController().navigate(action)
+    }
+
+    private fun deleteCategoryDialog(category: Category) {
         val tv = TextView(requireContext())
         tv.text = getString(R.string.category_list_fragment_delete_category_info_message)
 
@@ -98,9 +79,7 @@ class CategoryListFragment : Fragment() {
             .setCustomTitle(tv)
             .setNegativeButton(getString(R.string.button_cancel)) { _, _ -> }
             .setPositiveButton(getString(R.string.button_delete)) { dialog, _ ->
-                //TODO check out of range
-                val categoryName = categories[position].name
-                viewModel.deleteCategory(categoryName)
+                viewModel.deleteCategory(category.name)
                 Toast
                     .makeText(
                         requireContext(),

@@ -1,25 +1,29 @@
 package com.mrdmitriy65.serbianwordstrainer.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.chauthai.swipereveallayout.SwipeRevealLayout
-import com.mrdmitriy65.serbianwordstrainer.R
-import com.mrdmitriy65.serbianwordstrainer.databinding.ItemCategorySwipeBinding
+import com.mrdmitriy65.serbianwordstrainer.databinding.ItemCategoryBinding
 import com.mrdmitriy65.serbianwordstrainer.data.entities.Category
 import com.chauthai.swipereveallayout.ViewBinderHelper;
 
-class CategoryListAdapter(private val onItemClicked: (Category) -> Unit) :
+class CategoryListAdapter(private val onItemClicked: (Category) -> Unit,
+                          private val onDeleteClicked: (Category) -> Unit
+) :
     ListAdapter<Category, CategoryListAdapter.CategoryViewHolder>(DiffCallback) {
-        val bindHelper = ViewBinderHelper()
-    class CategoryViewHolder(private val binding: ItemCategorySwipeBinding) :
+
+    val bindHelper = ViewBinderHelper()
+
+    class CategoryViewHolder(private val binding: ItemCategoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
-            val layout: SwipeRevealLayout = binding.swipeLayout
-            val text: TextView = binding.categoryName
+        val layout: SwipeRevealLayout = binding.swipeLayout
+        val text: TextView = binding.categoryName
+        val deleteButton: Button = binding.deleteButton
 
         fun bind(category: Category) {
             binding.apply {
@@ -30,7 +34,7 @@ class CategoryListAdapter(private val onItemClicked: (Category) -> Unit) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         return CategoryViewHolder(
-            ItemCategorySwipeBinding.inflate(
+            ItemCategoryBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -39,9 +43,12 @@ class CategoryListAdapter(private val onItemClicked: (Category) -> Unit) :
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        var current = getItem(position)
+        val current = getItem(position)
         holder.text.setOnClickListener {
             onItemClicked(current)
+        }
+        holder.deleteButton.setOnClickListener {
+            onDeleteClicked(current)
         }
         bindHelper.bind(holder.layout, current.name)
         holder.bind(current)

@@ -10,7 +10,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.ItemTouchHelper
 import com.mrdmitriy65.serbianwordstrainer.R
 import com.mrdmitriy65.serbianwordstrainer.SerbianWordsTrainerApplication
 import com.mrdmitriy65.serbianwordstrainer.adapters.WordPairListAdapter
@@ -46,13 +45,7 @@ class WordPairsListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = WordPairListAdapter {
-            val categoryId = navigationArgs.categoryId
-            val action = WordPairsListFragmentDirections
-                .actionWordPairsListFragmentToAddNewPairFragment(it.id, categoryId)
-
-            this@WordPairsListFragment.findNavController().navigate(action)
-        }
+        val adapter = WordPairListAdapter(clickAction, deleteAction)
         binding.apply {
             wordPairList.adapter = adapter
             wordPairList.layoutManager = LinearLayoutManager(this@WordPairsListFragment.context)
@@ -71,17 +64,24 @@ class WordPairsListFragment : Fragment() {
                     adapter.submitList(it)
                 }
             }
-
-        val itemTouchHelper = ItemTouchHelper(object : SwipeHelper(binding.wordPairList) {
-            override fun instantiateUnderlayButton(position: Int): List<UnderlayButton> {
-                return listOf(deleteButton(position))
-            }
-        })
-
-        itemTouchHelper.attachToRecyclerView(binding.wordPairList)
     }
 
-    private fun deleteButton(position: Int) : SwipeHelper.UnderlayButton {
+    val clickAction: (pair: WordPair) -> Unit = {
+        val categoryId = navigationArgs.categoryId
+        val action = WordPairsListFragmentDirections
+            .actionWordPairsListFragmentToAddNewPairFragment(it.id, categoryId)
+
+        this@WordPairsListFragment.findNavController().navigate(action)
+    }
+
+    val deleteAction: (pair: WordPair) -> Unit = {
+        viewModel.deletePair(it.russian, it.serbian)
+        Toast
+            .makeText(requireContext(), getText(R.string.word_pairs_list_fragment_delete_complete), Toast.LENGTH_SHORT)
+            .show()
+    }
+
+    private fun deleteDialog(pair: WordPair) : SwipeHelper.UnderlayButton {
         return SwipeHelper.UnderlayButton(
             requireContext(),
             getString(R.string.button_delete),
@@ -89,8 +89,6 @@ class WordPairsListFragment : Fragment() {
             android.R.color.holo_red_light,
             object : SwipeHelper.UnderlayButtonClickListener {
                 override fun onClick() {
-                    //TODO check out of range
-                    val pair = pairs[position]
                     viewModel.deletePair(pair.russian, pair.serbian)
                     Toast
                         .makeText(requireContext(), getText(R.string.word_pairs_list_fragment_delete_complete), Toast.LENGTH_SHORT)
@@ -98,5 +96,4 @@ class WordPairsListFragment : Fragment() {
                 }
             })
     }
-
 }
