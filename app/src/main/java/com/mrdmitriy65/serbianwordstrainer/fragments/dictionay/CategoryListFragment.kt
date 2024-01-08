@@ -65,13 +65,15 @@ class CategoryListFragment : Fragment() {
         }
 
         // TODO here
-        val itemTouchHelper = ItemTouchHelper(object : SwipeHelper(binding.categoryList) {
-            override fun instantiateUnderlayButton(position: Int): List<UnderlayButton> {
-                return listOf(deleteButton(position))
-            }
-        })
-
-        itemTouchHelper.attachToRecyclerView(binding.categoryList)
+//        val ith = ItemTouchHelper(SwipeController())
+//        ith.attachToRecyclerView(binding.categoryList)
+//        val itemTouchHelper = ItemTouchHelper(object : SwipeHelper(binding.categoryList) {
+//            override fun instantiateUnderlayButton(position: Int): List<UnderlayButton> {
+//                return listOf(deleteButton(position))
+//            }
+//        })
+//
+//        itemTouchHelper.attachToRecyclerView(binding.categoryList)
     }
 
     private fun deleteButton(position: Int): SwipeHelper.UnderlayButton {

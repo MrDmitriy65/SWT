@@ -10,6 +10,8 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        // Repo for swipe
+        maven { url 'https://jitpack.io' }
     }
 }
 rootProject.name = "Serbian Words Trainer"
