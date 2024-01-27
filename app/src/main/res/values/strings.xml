@@ -33,6 +33,7 @@
     <string name="add_new_pair_fragment_add_new_category">Введите название категории</string>
     <string name="add_new_pair_fragment_empty_category_name">Пустое название категории</string>
     <string name="add_new_pair_fragment_can_not_save_pair">Нельзя сохранить пару</string>
+    <string name="add_new_pair_fragment_pair_exists">Пара уже существует</string>
     <string name="add_new_pair_fragment_pair_added">Пара добавлена</string>
     <string name="add_new_pair_fragment_data_is_not_correct">Данные неверны</string>
 

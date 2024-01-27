@@ -178,7 +178,7 @@ class AddNewPairFragment : Fragment() {
             viewLifecycleOwner.lifecycleScope.launch {
                 val isExists = viewModel.isPairExists(russian, serbian)
                 if (isExists) {
-                    showToast(getString(R.string.add_new_pair_fragment_can_not_save_pair))
+                    showToast(getString(R.string.add_new_pair_fragment_pair_exists))
                     return@launch
                 }
                 viewModel.addNewPair(russian, serbian, selectedCategoryId, comment, pronunciation)
