@@ -46,7 +46,13 @@ class FloatLearnExerciseManager(
         }
     }
 
-    private fun clearString(answer: String): String = answer.lowercase().replace('ё', 'е').trim()
+    private fun clearString(answer: String): String =
+        answer
+            .lowercase()
+            .replace('ё', 'е')
+            .replace("!", "")
+            .replace("?", "")
+            .trim()
 
     override fun setNextExercise() {
         currentExerciseIndex++
