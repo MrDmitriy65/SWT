@@ -89,7 +89,8 @@ class LearnStartedWordsExerciseGenerator(private val dao: WordPairDao) : IExerci
     }
 
     private fun GetExerciseType(word: WordPair): ExerciseType {
-        val level = word.learnLevel / Constants.WORD_ANSWERS_TO_INCREASE_EXERCISE_LEVEL
+        // Minus 1 because 1 is first level to start learn
+        val level = (word.learnLevel -1) / Constants.WORD_ANSWERS_TO_INCREASE_EXERCISE_LEVEL
         return when (level) {
             0 -> ExerciseType.CHOSE_FROM_VARIANTS
             1 -> ExerciseType.WRITE_WORD_FROM_CHARACTERS
