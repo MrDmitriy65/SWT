@@ -133,7 +133,7 @@ class AddNewPairFragment : Fragment() {
                 wordLearnLevel.text = getString(
                     R.string.add_new_pair_fragment_learn_level_of,
                     it.learnLevel.toString(),
-                    Constants.WORD_LAST_LEARN_LEVEL.toString()
+                    Constants.WORD_LEARN_COMPLETE_LEVEL.toString()
                 )
             }
         }

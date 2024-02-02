@@ -36,7 +36,7 @@ interface WordPairDao {
     @Query("SELECT * FROM word_pairs WHERE category_id = :categoryId")
     fun getWordPairsByCategoryId(categoryId: Int): Flow<List<WordPair>>
 
-    @Query("SELECT * FROM word_pairs WHERE learn_level > :startLevel AND learn_level < :endLevel")
+    @Query("SELECT * FROM word_pairs WHERE learn_level >= :startLevel AND learn_level <= :endLevel")
     suspend fun getWordPairsBetweenLevels(startLevel: Int, endLevel: Int): List<WordPair>
 
     @Query("SELECT * FROM word_pairs WHERE learn_level = 0 LIMIT :count")
