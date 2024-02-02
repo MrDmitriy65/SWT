@@ -23,7 +23,7 @@ class StandartResultTrainingProcessor(private val dao: WordPairDao) : IResultPro
                 val rtm = word.value.first()
                 val toChange = dao.getWordPairByWords(rtm.russian, rtm.serbian)
                 if (word.value.all { it.isCorrect }) {
-                    if (toChange.learnLevel < Constants.WORD_LAST_LEARN_LEVEL) {
+                    if (toChange.learnLevel <= Constants.WORD_LAST_LEARN_LEVEL) {
                         dao.updateLevel(toChange.id, toChange.learnLevel + 1)
                     }
                 } else if (word.value.all { !it.isCorrect }) {
