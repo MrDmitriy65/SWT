@@ -39,11 +39,17 @@ interface WordPairDao {
     @Query("SELECT * FROM word_pairs WHERE learn_level >= :startLevel AND learn_level <= :endLevel")
     suspend fun getWordPairsBetweenLevels(startLevel: Int, endLevel: Int): List<WordPair>
 
+    @Query("SELECT * FROM word_pairs WHERE learn_level = :level LIMIT :take OFFSET :skip")
+    suspend fun getWordPairsWithLevel(level: Int, skip: Int, take: Int): List<WordPair>
+
     @Query("SELECT * FROM word_pairs WHERE learn_level = 0 LIMIT :count")
     suspend fun getWordPairsNotStarted(count: Int): List<WordPair>
 
     @Query("SELECT * FROM word_pairs WHERE russian not in (:words) AND serbian not in (:words) ORDER BY RANDOM() LIMIT :takeCount")
     suspend fun getRandomWordsNotInRange(words: List<String>, takeCount:Int): List<WordPair>
+
+    @Query("UPDATE word_pairs SET learn_level = learn_level + 1 WHERE id = :id")
+    suspend fun increasePairLevel(id: Int)
 
     @Query("DELETE FROM word_pairs WHERE russian = :russian AND serbian = :serbian")
     suspend fun deletePair(russian: String, serbian: String)

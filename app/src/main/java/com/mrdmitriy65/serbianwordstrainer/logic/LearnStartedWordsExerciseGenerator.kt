@@ -30,7 +30,7 @@ class LearnStartedWordsExerciseGenerator(private val dao: WordPairDao) : IExerci
                 TranslationType.REVERSE,
                 pronounce
             )
-            
+
             val type = GetExerciseType(word)
             when (type) {
                 ExerciseType.CHOSE_FROM_VARIANTS -> {
@@ -57,15 +57,28 @@ class LearnStartedWordsExerciseGenerator(private val dao: WordPairDao) : IExerci
         val result = mutableListOf<WordPair>()
         result.addAll(words)
 
-        if (words.count() < Constants.EXERCISE_BUFFER_WORDS_COUNT) {
-            val buffPotions =
-                Constants.EXERCISE_BUFFER_WORDS_COUNT / Constants.EXERCISE_PORTION_ADD_TO_BUFFER_WORDS_COUNT
-            val currentCountInPortions =
-                words.count() / Constants.EXERCISE_PORTION_ADD_TO_BUFFER_WORDS_COUNT
-            val difference = buffPotions - currentCountInPortions
-            val toAddCount = difference * Constants.EXERCISE_PORTION_ADD_TO_BUFFER_WORDS_COUNT
-
-            result.addAll(dao.getWordPairsNotStarted(toAddCount))
+        // Fill buffer if needed
+        if (result.count() < Constants.EXERCISE_BUFFER_WORDS_COUNT) {
+            var skip = 0;
+            var take = Constants.EXERCISE_BUFFER_WORDS_COUNT - result.count()
+            while (take > 0) {
+                val tempWords =
+                    dao.getWordPairsWithLevel(Constants.WORD_NOT_STARTED_LEARN, skip, take)
+                for (word in tempWords) {
+                    // If exists word or translate than skip
+                    val isExists = result.any { x ->
+                        x.serbian == word.serbian ||
+                        x.russian == word.russian
+                    }
+                    if(!isExists){
+                        result.add(word)
+                        dao.increasePairLevel(word.id)
+                    }
+                }
+                // Calculate next part of words to load
+                skip += take
+                take = if(tempWords.count() != take) 0 else Constants.EXERCISE_BUFFER_WORDS_COUNT - result.count()
+            }
         }
 
         return result

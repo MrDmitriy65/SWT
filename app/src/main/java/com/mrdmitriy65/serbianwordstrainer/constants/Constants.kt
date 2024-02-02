@@ -13,7 +13,6 @@ class Constants {
 
         const val EXERCISE_BUFFER_WORDS_COUNT = 30
         const val EXERCISE_WORDS_COUNT_IN_EXERCISE = 15
-        const val EXERCISE_PORTION_ADD_TO_BUFFER_WORDS_COUNT = 5
 
         // Log tags
         const val LOG_TAG_EXERCISE_TRAINING = "Exercise_training"
