@@ -121,6 +121,9 @@ class AddNewPairFragment : Fragment() {
             addNewPair()
         }
         binding.wordLearnLevel.visibility = View.INVISIBLE
+        binding.startLearn.visibility = View.INVISIBLE
+        binding.learnAgain.visibility = View.INVISIBLE
+        binding.stopLearn.visibility = View.INVISIBLE
     }
 
     private fun bindEditPair() {
@@ -135,6 +138,7 @@ class AddNewPairFragment : Fragment() {
                     it.learnLevel.toString(),
                     Constants.WORD_LEARN_COMPLETE_LEVEL.toString()
                 )
+                configureLevelButtons(it.learnLevel)
             }
         }
         binding.save.setOnClickListener {
@@ -163,7 +167,35 @@ class AddNewPairFragment : Fragment() {
                 showToast(getString(R.string.add_new_pair_fragment_can_not_save_pair))
             }
         }
+    }
 
+    private fun configureLevelButtons(learnLevel: Int){
+        when(learnLevel) {
+            0 -> {
+                binding.startLearn.isEnabled = true
+                binding.startLearn.setOnClickListener { viewModel.setLevel(navigationArgs.wordPairId, Constants.WORD_START_LEARN_LEVEL) }
+
+                binding.learnAgain.isEnabled = false
+                binding.stopLearn.isEnabled = false
+            }
+            in 1..8 -> {
+                binding.startLearn.isEnabled = false
+
+                binding.learnAgain.isEnabled = true
+                binding.learnAgain.setOnClickListener { viewModel.setLevel(navigationArgs.wordPairId, Constants.WORD_START_LEARN_LEVEL) }
+
+                binding.stopLearn.isEnabled = true
+                binding.stopLearn.setOnClickListener { viewModel.setLevel(navigationArgs.wordPairId, Constants.WORD_NOT_STARTED_LEARN) }
+            }
+            9 -> {
+                binding.startLearn.isEnabled = false
+
+                binding.learnAgain.isEnabled = true
+                binding.learnAgain.setOnClickListener { viewModel.setLevel(navigationArgs.wordPairId, Constants.WORD_START_LEARN_LEVEL) }
+
+                binding.stopLearn.isEnabled = false
+            }
+        }
     }
 
 

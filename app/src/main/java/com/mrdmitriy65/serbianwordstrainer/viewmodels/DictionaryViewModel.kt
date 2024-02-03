@@ -38,7 +38,13 @@ class DictionaryViewModel(
     }
 
 
-    fun addNewPair(russian: String, serbian: String, categoryId: Int, comment: String = "", pronunciation: String = "") {
+    fun addNewPair(
+        russian: String,
+        serbian: String,
+        categoryId: Int,
+        comment: String = "",
+        pronunciation: String = ""
+    ) {
         viewModelScope.launch {
             if (!wordPairDao.isWordPairExists(russian, serbian)) {
                 wordPairDao.insert(
@@ -55,41 +61,64 @@ class DictionaryViewModel(
         }
     }
 
-    suspend fun isPairExists(russian: String, serbian: String) = wordPairDao.isWordPairExists(russian, serbian)
+    suspend fun isPairExists(russian: String, serbian: String) =
+        wordPairDao.isWordPairExists(russian, serbian)
 
     fun isPairValid(russianWord: String, serbianWord: String, categoryId: Int): Boolean {
-        if(russianWord.isBlank() || serbianWord.isBlank() || categoryId < 1){
+        if (russianWord.isBlank() || serbianWord.isBlank() || categoryId < 1) {
             return false
         }
         return true
     }
 
-    fun isPairValidForChange(id: Int, russian: String, serbian: String): Boolean{
+    fun isPairValidForChange(id: Int, russian: String, serbian: String): Boolean {
         var existingWord: WordPair?
         runBlocking {
             existingWord = wordPairDao.getWordPairByWords(russian, serbian)
         }
 
-        if(existingWord == null)
-        {
+        if (existingWord == null) {
             return true
         }
-        if(existingWord?.id == id){
+        if (existingWord?.id == id) {
             return true
         }
         return false
     }
 
-    fun getPairById(id:Int):LiveData<WordPair> = wordPairDao.getWordPairById(id).asLiveData()
+    fun getPairById(id: Int): LiveData<WordPair> = wordPairDao.getWordPairById(id).asLiveData()
 
-    fun updatePair(id: Int, russian: String, serbian: String, comment: String, categoryId: Int, pronunciation: String = ""){
+    fun updatePair(
+        id: Int,
+        russian: String,
+        serbian: String,
+        comment: String,
+        categoryId: Int,
+        pronunciation: String = ""
+    ) {
         viewModelScope.launch {
-            val wordPair = WordPair(id, russian, serbian, categoryId, comment, pronunciation, WORD_NOT_STARTED_LEARN)
+            val wordPair = WordPair(
+                id,
+                russian,
+                serbian,
+                categoryId,
+                comment,
+                pronunciation,
+                WORD_NOT_STARTED_LEARN
+            )
             wordPairDao.update(wordPair)
         }
     }
 
-    fun deletePair(russian: String, serbian: String){
+    fun setLevel(id: Int, level: Int) {
+        viewModelScope.launch {
+            if (wordPairDao.pairExistsById(id)) {
+                wordPairDao.updateLevel(id, level)
+            }
+        }
+    }
+
+    fun deletePair(russian: String, serbian: String) {
         viewModelScope.launch {
             wordPairDao.deletePair(russian, serbian)
         }

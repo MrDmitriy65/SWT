@@ -13,6 +13,8 @@
         android:hint="@string/add_new_pair_fragment_russian_word"
         android:autofillHints="@string/add_new_pair_fragment_russian_word"
         android:inputType="textCapSentences"
+        android:layout_marginHorizontal="@dimen/small_margin_size"
+        android:layout_marginTop="@dimen/small_margin_size"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -24,6 +26,7 @@
         android:hint="@string/add_new_pair_fragment_serbian_word"
         android:autofillHints="@string/add_new_pair_fragment_serbian_word"
         android:inputType="textCapSentences"
+        android:layout_marginHorizontal="@dimen/small_margin_size"
         app:layout_constraintTop_toBottomOf="@id/russian_word"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,6 +39,7 @@
         android:hint="@string/add_new_pair_fragment_comment"
         android:autofillHints="@string/add_new_pair_fragment_comment"
         android:inputType="textCapSentences"
+        android:layout_marginHorizontal="@dimen/small_margin_size"
         app:layout_constraintTop_toBottomOf="@id/serbian_word"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,6 +49,7 @@
         android:id="@+id/categories"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/small_margin_size"
         app:layout_constraintTop_toBottomOf="@id/comment"
         app:layout_constraintBottom_toBottomOf="@id/add_new_category"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,6 +71,7 @@
         android:hint="@string/add_new_pair_fragment_pronunciation"
         android:autofillHints="@string/add_new_pair_fragment_pronunciation"
         android:inputType="textAutoComplete"
+        android:layout_marginHorizontal="@dimen/small_margin_size"
         app:layout_constraintTop_toBottomOf="@id/add_new_category"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/play_word"
@@ -84,6 +90,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/button_save"
+        android:layout_marginHorizontal="@dimen/small_margin_size"
         app:layout_constraintTop_toBottomOf="@id/pronunciation"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -96,6 +103,40 @@
         android:text="@string/add_new_pair_fragment_learn_level_of"
         android:layout_marginStart="@dimen/fab_margin"
         app:layout_constraintTop_toBottomOf="@id/save"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <Button
+        android:id="@+id/start_learn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_new_pair_fragment_button_start_learn"
+        android:layout_marginTop="@dimen/medium_margin_size"
+        android:layout_marginHorizontal="@dimen/small_margin_size"
+        app:layout_constraintTop_toBottomOf="@id/word_learn_level"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <Button
+        android:id="@+id/learn_again"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_new_pair_fragment_button_learn_again"
+        android:layout_marginHorizontal="@dimen/small_margin_size"
+        app:layout_constraintTop_toBottomOf="@id/start_learn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <Button
+        android:id="@+id/stop_learn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_new_pair_fragment_button_stop_learn"
+        android:layout_marginHorizontal="@dimen/small_margin_size"
+        app:layout_constraintTop_toBottomOf="@id/learn_again"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />

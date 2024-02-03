@@ -36,6 +36,9 @@
     <string name="add_new_pair_fragment_pair_exists">Пара уже существует</string>
     <string name="add_new_pair_fragment_pair_added">Пара добавлена</string>
     <string name="add_new_pair_fragment_data_is_not_correct">Данные неверны</string>
+    <string name="add_new_pair_fragment_button_start_learn">Начать изучение</string>
+    <string name="add_new_pair_fragment_button_learn_again">Изучить снова</string>
+    <string name="add_new_pair_fragment_button_stop_learn">Остановить изучение</string>
 
     <!-- Chose From Variants fragment -->
     <string name="chose_from_variants_fragment_play_sound">Прослушать слово</string>

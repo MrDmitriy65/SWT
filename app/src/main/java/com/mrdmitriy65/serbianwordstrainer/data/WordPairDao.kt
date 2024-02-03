@@ -24,6 +24,9 @@ interface WordPairDao {
     @Query("SELECT * FROM word_pairs WHERE id = :id")
     fun getWordPairById(id: Int): Flow<WordPair>
 
+    @Query("SELECT EXISTS (SELECT * FROM word_pairs WHERE id = :id LIMIT 1)")
+    suspend fun pairExistsById(id:Int) : Boolean
+
     @Query("SELECT * FROM word_pairs WHERE russian = :russian AND serbian = :serbian LIMIT 1")
     suspend fun getWordPairByWords(russian: String, serbian: String): WordPair
 
