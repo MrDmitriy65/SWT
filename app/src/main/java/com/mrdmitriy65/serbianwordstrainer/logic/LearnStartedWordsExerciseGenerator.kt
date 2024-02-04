@@ -31,7 +31,7 @@ class LearnStartedWordsExerciseGenerator(private val dao: WordPairDao) : IExerci
                 pronounce
             )
 
-            val type = GetExerciseType(word)
+            val type = getExerciseType(word)
             when (type) {
                 ExerciseType.CHOSE_FROM_VARIANTS -> {
                     result.add(Exercise(pairReverse, type, true))
@@ -46,7 +46,38 @@ class LearnStartedWordsExerciseGenerator(private val dao: WordPairDao) : IExerci
             }
         }
 
-        return result.shuffled().toList()
+        return result.shuffled().splitDuplicatedPairs()
+    }
+
+    private fun List<Exercise>.splitDuplicatedPairs() : List<Exercise>
+    {
+        val mutableSource = this.toMutableList()
+        var index = 0
+        while (index < mutableSource.count() -1)
+        {
+            if(mutableSource[index].pair == mutableSource[index + 1].pair)
+            {
+                val toExchange = mutableSource[index]
+                mutableSource.removeAt(index)
+                val insertIndex = findFreeIndexFor(toExchange.pair, mutableSource)
+                mutableSource.add(insertIndex, toExchange)
+                continue
+            }
+            index++
+        }
+        return mutableSource.toList()
+    }
+
+    private fun findFreeIndexFor(pair: ExercisePair, source: MutableList<Exercise>): Int {
+        for (i in 0 until source.count())
+        {
+            if ((i == 0 || source[i - 1].pair != pair) && source[i].pair != pair)
+            {
+                return i
+            }
+        }
+
+        return 0
     }
 
     private suspend fun getWords(): List<WordPair> {
@@ -59,7 +90,7 @@ class LearnStartedWordsExerciseGenerator(private val dao: WordPairDao) : IExerci
 
         // Fill buffer if needed
         if (result.count() < Constants.EXERCISE_BUFFER_WORDS_COUNT) {
-            var skip = 0;
+            var skip = 0
             var take = Constants.EXERCISE_BUFFER_WORDS_COUNT - result.count()
             while (take > 0) {
                 val tempWords =
@@ -88,7 +119,7 @@ class LearnStartedWordsExerciseGenerator(private val dao: WordPairDao) : IExerci
 
     }
 
-    private fun GetExerciseType(word: WordPair): ExerciseType {
+    private fun getExerciseType(word: WordPair): ExerciseType {
         // Minus 1 because 1 is first level to start learn
         val level = (word.learnLevel -1) / Constants.WORD_ANSWERS_TO_INCREASE_EXERCISE_LEVEL
         return when (level) {
