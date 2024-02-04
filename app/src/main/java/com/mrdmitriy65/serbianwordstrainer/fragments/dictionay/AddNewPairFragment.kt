@@ -164,34 +164,67 @@ class AddNewPairFragment : Fragment() {
                     )
                 findNavController().navigate(action)
             } else {
-                showToast(getString(R.string.add_new_pair_fragment_can_not_save_pair))
+                viewLifecycleOwner.lifecycleScope.launch {
+                    val isExists = viewModel.isPairExists(
+                        binding.russianWord.text.toString(),
+                        binding.serbianWord.text.toString()
+                    )
+                    if (isExists) {
+                        showToast(getString(R.string.add_new_pair_fragment_pair_exists))
+                        return@launch
+                    } else {
+                        showToast(getString(R.string.add_new_pair_fragment_can_not_save_pair))
+                    }
+                }
             }
         }
     }
 
-    private fun configureLevelButtons(learnLevel: Int){
-        when(learnLevel) {
+    private fun configureLevelButtons(learnLevel: Int) {
+        when (learnLevel) {
             0 -> {
                 binding.startLearn.isEnabled = true
-                binding.startLearn.setOnClickListener { viewModel.setLevel(navigationArgs.wordPairId, Constants.WORD_START_LEARN_LEVEL) }
+                binding.startLearn.setOnClickListener {
+                    viewModel.setLevel(
+                        navigationArgs.wordPairId,
+                        Constants.WORD_START_LEARN_LEVEL
+                    )
+                }
 
                 binding.learnAgain.isEnabled = false
                 binding.stopLearn.isEnabled = false
             }
+
             in 1..8 -> {
                 binding.startLearn.isEnabled = false
 
                 binding.learnAgain.isEnabled = true
-                binding.learnAgain.setOnClickListener { viewModel.setLevel(navigationArgs.wordPairId, Constants.WORD_START_LEARN_LEVEL) }
+                binding.learnAgain.setOnClickListener {
+                    viewModel.setLevel(
+                        navigationArgs.wordPairId,
+                        Constants.WORD_START_LEARN_LEVEL
+                    )
+                }
 
                 binding.stopLearn.isEnabled = true
-                binding.stopLearn.setOnClickListener { viewModel.setLevel(navigationArgs.wordPairId, Constants.WORD_NOT_STARTED_LEARN) }
+                binding.stopLearn.setOnClickListener {
+                    viewModel.setLevel(
+                        navigationArgs.wordPairId,
+                        Constants.WORD_NOT_STARTED_LEARN
+                    )
+                }
             }
+
             9 -> {
                 binding.startLearn.isEnabled = false
 
                 binding.learnAgain.isEnabled = true
-                binding.learnAgain.setOnClickListener { viewModel.setLevel(navigationArgs.wordPairId, Constants.WORD_START_LEARN_LEVEL) }
+                binding.learnAgain.setOnClickListener {
+                    viewModel.setLevel(
+                        navigationArgs.wordPairId,
+                        Constants.WORD_START_LEARN_LEVEL
+                    )
+                }
 
                 binding.stopLearn.isEnabled = false
             }
