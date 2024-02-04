@@ -29,8 +29,6 @@ class ExercisePair(
     override fun hashCode(): Int {
         var result = questionWord.hashCode()
         result = 31 * result + answerWord.hashCode()
-        result = 31 * result + translationType.hashCode()
-        result = 31 * result + pronounce.hashCode()
         return result
     }
 }
